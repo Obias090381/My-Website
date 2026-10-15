@@ -11,6 +11,7 @@ function App() {
   return (
     <BrowserRouter>
       <h1>Friends of the Eucharist</h1>
+      <br />
 
       <nav>
         <Link to="/About">About Us</Link>
