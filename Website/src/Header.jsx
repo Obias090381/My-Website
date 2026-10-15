@@ -2,7 +2,7 @@ function Header() {
 
     return (
         <header>
-            <h1>Welcome to My Website</h1>  
+            <h1>Welcome</h1>  
 
         </header> 
     );
@@ -10,4 +10,3 @@ function Header() {
 }
 
 export default Header;
-
