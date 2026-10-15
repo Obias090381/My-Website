@@ -1,6 +1,9 @@
 function About() {
   return (
-    <About>
+    <section id="About">
+        <h2>About Us</h2>
+        <p>This is the About page.</p>
+    
       <h2>
         To help our parish become a community that encounters Jesus in the
         Eucharist, grows through prayer and formation, celebrates Mass with
@@ -47,7 +50,7 @@ function About() {
           the Eucharist.
         </li>
       </ol>
-    </About>
+    </section>
   );
 }
 export default About;
