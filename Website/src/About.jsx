@@ -1,6 +1,6 @@
-export default function About() {
+function About() {
   return (
-    <>
+    <About>
       <h2>
         To help our parish become a community that encounters Jesus in the
         Eucharist, grows through prayer and formation, celebrates Mass with
@@ -47,6 +47,7 @@ export default function About() {
           the Eucharist.
         </li>
       </ol>
-    </>
+    </About>
   );
 }
+export default About;
