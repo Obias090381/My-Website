@@ -7,7 +7,7 @@ function Header() {
                 <nav> 
                     <ul>
                         <li><a href="#">Home</a></li>
-                        <li><a href="#About Us">About Us</a></li>
+                        <li><a href="#About.jsx">About Us</a></li>
                         <li><a href="#Contact">Contact</a></li>
                     </ul>
                 </nav>  
