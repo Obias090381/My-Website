@@ -1,6 +1,6 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
+  --text: #6b6375; text-align: left;
+  --text-h: #08060d; 
   --bg: #ebf137;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
