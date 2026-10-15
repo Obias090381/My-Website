@@ -12,6 +12,7 @@ function Header() {
                     </ul>
                 </nav>  
             </h2>
+            <hr /> <hr />
         </header> 
     );
        
