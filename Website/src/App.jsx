@@ -1,5 +1,4 @@
 import Footer from './Footer.jsx';
-import About from './About.jsx';
 
 function App() {
   return (
@@ -13,8 +12,7 @@ function App() {
           <li><a href="#Contact">Contact</a></li>
         </ul>
       </nav>
-      <hr />
-      <About />
+
       <Footer />
     </>
   );
