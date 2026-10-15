@@ -2,7 +2,7 @@ function Header() {
 
     return (
         <header>
-            <h1>Welcome</h1>  
+            <h1>Welcome to Paraiso</h1>  
 
         </header> 
     );
