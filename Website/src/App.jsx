@@ -6,9 +6,18 @@ import About from './About.jsx'
 function App() {
   return (
     <>
-      <Header/>
-      <Body/>
-      <Footer/>
+      <h1>Friends of the Eucharist</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#About.jsx">About Us</a></li>
+          <li><a href="#Contact">Contact</a></li>
+        </ul>
+      </nav>
+      <hr />
+      <Header />
+      <Body />
+      <Footer />
     </>
   );
 }
