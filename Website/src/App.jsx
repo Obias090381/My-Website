@@ -1,21 +1,29 @@
-import Footer from './Footer.jsx';
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+import Home from "./Pages/Home";
+import About from "./Pages/About";
+import Contact from "./Pages/Contact";
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <h1>Friends of the Eucharist</h1>
 
       <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="#About">About Us</Link></li>
-          <li><Link to="#Contact">Contact</Link></li>
-        </ul>
+        <Link to="/">Home</Link>
+        <Link to="/about">About Us</Link>
+        <Link to="/contact">Contact</Link>
       </nav>
 
-      <Footer />
-    </>
+      <hr />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-export default App
+export default App;
