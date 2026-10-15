@@ -1,6 +1,11 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-
+import { BrowserRouter, Routes, Route, 
+Link } from "react-router-dom";
 import About from "./Pages/About.jsx";
+
+function home() {
+  return <h1>Friends of the Eucharist</h1>;
+}
+
 
 function App() {
   return (
