@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
-import About from "./Pages/About Us.jsx";
+import About from "./Pages/About.jsx";
 
 function App() {
   return (
@@ -8,14 +8,14 @@ function App() {
       <h1>Friends of the Eucharist</h1>
 
       <nav>
-        <Link to="/About Us">About Us</Link>
+        <Link to="/About">About Us</Link>
 
       </nav>
 
       <hr />
 
       <Routes>
-        <Route path="/About Us" element={<About />} />
+        <Route path="/About" element={<About />} />
       </Routes>
     </BrowserRouter>
   );
