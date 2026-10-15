@@ -1,10 +1,5 @@
 import { BrowserRouter, Routes, Route, 
 Link } from "react-router-dom";
-import About from "./Pages/About.jsx";
-
-function home() {
-  return <h1>Friends of the Eucharist</h1>;
-}
 
 
 function App() {
@@ -12,17 +7,7 @@ function App() {
     <BrowserRouter>
       <h1>Friends of the Eucharist</h1>
       <br />
-
-      <nav>
-        <Link to="/About">About Us</Link>
-
-      </nav>
-
-      <hr />
-
-      <Routes>
-        <Route path="/About" element={<About />} />
-      </Routes>
+      
     </BrowserRouter>
   );
 }
