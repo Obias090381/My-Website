@@ -1,3 +1,4 @@
+import blessedSacrament from "./assets/Blessed Sacrament.jpg";
 function Home() {
   return (
     <section id="Home">
@@ -5,7 +6,7 @@ function Home() {
         <p>This is the Home page.</p>
 
         <div>
-            <img src="Blessed Sacrament.jpg" alt="Blessed Sacrament" />
+            <img src={blessedSacrament} alt="Blessed Sacrament" />
         </div>
     
 
