@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
-import BlessedSacrament from "./assets/Blessed Sacrament.jpg";
+import Home from "./Pages/Home";
 
 function App() {
   return (
@@ -10,18 +10,17 @@ function App() {
       <h1>Friends of the Eucharist</h1>
 
       <nav>
+        <Link to="/Home">Home</Link>
         <Link to="/About">About Us</Link>
         <Link to="/Contact">Contact Us</Link>
       </nav>
       <hr />
 
-      <div>
-        <img src={BlessedSacrament} alt="Blessed Sacrament" />
-      </div>
-
       <Routes>
+        <Route path="/Home" element={<Home />} />
         <Route path="/About" element={<About />} />
         <Route path="/Contact" element={<Contact />} />
+
       </Routes>
     </BrowserRouter>
   );
