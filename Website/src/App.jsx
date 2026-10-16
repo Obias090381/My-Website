@@ -9,6 +9,7 @@ function App() {
       <h1>Friends of the Eucharist</h1>
 
       <nav>
+        <Link to="/About">About Us</Link>
         <Link to="/Contact">Contact Us</Link>
       </nav>
 
