@@ -9,9 +9,7 @@ import Ministries from "./Pages/Ministries";
 function App() {
   return (
     <BrowserRouter>
-      <h1>ST. MARY'S CATHOLIC CHURCH
-          Winneconne and Omro, Wisconsin, 
-          USA      
+      <h1>A PASTOR'S JOURNEY: Faith, Vision and Service      
       </h1>
 
       <h2>This is an unofficial website created solely to help inform and support the parish community about the pastor's journey, vision and goals for the parish. it is not an offcial website pf the parish or any affiliated organization.
