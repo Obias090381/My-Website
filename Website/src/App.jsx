@@ -9,7 +9,14 @@ import Ministries from "./Pages/Ministries";
 function App() {
   return (
     <BrowserRouter>
-      <h1>Friends of the Eucharist</h1>
+      <h1>ST. MARY'S CATHOLIC CHURCH
+          Winneconne and Omro, Wisconsin, 
+          USA      
+      </h1>
+
+      <h2>This is a website for St. Mary's Catholic Church in Winneconne and Omro, Wisconsin, USA. 
+          It provides information about the church's services, ministries, and contact details.</h2>
+
 
       <nav>
         <Link to="/">Home</Link>
