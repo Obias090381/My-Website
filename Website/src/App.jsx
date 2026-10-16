@@ -12,8 +12,8 @@ function App() {
       <h1>A PASTOR'S JOURNEY: Faith, Vision and Service      
       </h1>
 
-      <h2>This is an unofficial website created solely to help inform and support the parish community about the pastor's journey, vision and goals for the parish. it is not an offcial website pf the parish or any affiliated organization.
-          The information provided is for general informational purposes onlt and may not represent official statements, policies or decisions of the parish. visitors are responsible for how they use and interpret the information contained on this website. for official information, please consult the parish's authorized communication channel. 
+      <h2>This is an unofficial website created solely to help inform and support the parish community about the pastor's journey, vision and goals for the parish. It is not an official website of the Parishes of St. Mary's in Winneconne & Omro, Wisconsin, USA or any affiliated organization.
+          The information provided is for general informational purposes only and may not represent official statements, policies or decisions of the parish. Visitors are responsible for how they use and interpret the information contained on this website. For official information, please consult the parish's authorized communication channel. 
       </h2>
 
 
