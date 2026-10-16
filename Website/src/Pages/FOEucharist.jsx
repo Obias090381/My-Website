@@ -1,8 +1,8 @@
-function About() {
+function FOEucharist() {
   return (
-    <section id="About">
+    <section id="FOEucharist">
         <h2>About Us</h2>
-        <p>This is the About page.</p>
+        <p>This is the Friends of the Eucharist Page.</p>
     
       <h2>
         To help our parish become a community that encounters Jesus in the
@@ -53,4 +53,4 @@ function About() {
     </section>
   );
 }
-export default About;
+export default FOEucharist;

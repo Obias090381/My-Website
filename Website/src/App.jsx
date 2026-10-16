@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
-import About from "./Pages/About";
+import FOEucharist from "./Pages/FOEucharist";
 import Contact from "./Pages/Contact";
 import Home from "./Pages/Home";
 
@@ -11,14 +11,14 @@ function App() {
 
       <nav>
         <Link to="/">Home</Link>
-        <Link to="/About">About Us</Link>
+        <Link to="/FOEucharist">FOEucharist</Link>
         <Link to="/Contact">Contact Us</Link>
       </nav>
       <hr />
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/About" element={<About />} />
+        <Route path="/FOEucharist" element={<FOEucharist />} />
         <Route path="/Contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
