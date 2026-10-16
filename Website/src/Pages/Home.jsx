@@ -5,7 +5,7 @@ function Home() {
         <p>This is the Home page.</p>
 
         <div>
-            <img src={BlessedSacrament} alt="Blessed Sacrament.jpg" />
+            <img src="Blessed Sacrament.jpg" alt="Blessed Sacrament" />
         </div>
     
 
