@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
+import BlessedSacrament from "./assets/BlessedSacrament.jpg";
 
 function App() {
   return (
@@ -12,8 +13,11 @@ function App() {
         <Link to="/About">About Us</Link>
         <Link to="/Contact">Contact Us</Link>
       </nav>
-
       <hr />
+
+      <div>
+        <img src={BlessedSacrament} alt="Blessed Sacrament" />
+      </div>
 
       <Routes>
         <Route path="/About" element={<About />} />
