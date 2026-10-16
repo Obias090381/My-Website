@@ -11,8 +11,8 @@ function App() {
     <BrowserRouter>
       <div>
         <header>
-          <h2>A PASTOR'S JOURNEY: 
-              Faith, Vision and Service</h2>
+          <h1>A PASTOR'S JOURNEY: 
+              Faith, Vision and Service</h1>
           <h4>
             This is an unofficial website created solely to help inform and support the
             parish community about the pastor's journey, vision and goals for the parish.
