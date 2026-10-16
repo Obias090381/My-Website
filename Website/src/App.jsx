@@ -11,9 +11,9 @@ function App() {
     <BrowserRouter>
       <div>
         <header>
-          <h1>A PASTOR'S JOURNEY: 
-              Faith, Vision and Service</h1>
-          <h2>
+          <h2>A PASTOR'S JOURNEY: 
+              Faith, Vision and Service</h2>
+          <h4>
             This is an unofficial website created solely to help inform and support the
             parish community about the pastor's journey, vision and goals for the parish.
             It is not an official website of the Parishes of St. Mary's in Winneconne &
@@ -23,7 +23,7 @@ function App() {
             how they use and interpret the information contained on this website. For
             official information, please consult the parish's authorized communication
             channel.
-          </h2>
+          </h4>
         </header>
 
         <nav>
