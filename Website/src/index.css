@@ -1,3 +1,48 @@
+
+/* Main title and subtitle container */
+.intro {
+  width: 90%;
+  max-width: 1200px;
+  margin: 35px auto 25px;
+  text-align: left;
+}
+
+/* Main page title */
+.main-title {
+  margin: 0 0 22px;
+  color: #1d2433;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 1px;
+}
+
+/* Subtitle or introductory paragraph */
+.subtitle {
+  margin: 0;
+  color: #202020;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1rem, 1.7vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: left;
+}
+/* Optional gold line below the subtitle */
+.intro::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 4px;
+  margin-top: 28px;
+  background-color: #d9a441;
+}
+
+
+
+
+
+
 /* Navigation bar*/
 .navbar {
   display: flex;
