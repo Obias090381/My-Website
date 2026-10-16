@@ -1,4 +1,4 @@
-import blessedSacrament from "./assets/Blessed Sacrament.jpg";
+import blessedSacrament from "../assets/Blessed Sacrament.jpg";
 function Home() {
   return (
     <section id="Home">
