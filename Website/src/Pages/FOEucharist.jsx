@@ -1,7 +1,7 @@
 function FOEucharist() {
   return (
     <section id="FOEucharist">
-        <h2>About Us</h2>
+        <h2>Friends of the Eucharist</h2>
         <p>This is the Friends of the Eucharist Page.</p>
     
       <h2>
