@@ -28,7 +28,7 @@ function App() {
           </h4>
         </header>
 
-        <nav>
+        <nav className="navbar">
           <Link to="/">Home</Link>
           <Link to="/FOEucharist">FOEucharist</Link>
           <Link to="/Pastoral Visitation">Pastoral Visitation</Link>
