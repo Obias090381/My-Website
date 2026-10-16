@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
-import BlessedSacrament from "./assets/BlessedSacrament.jpg";
+import BlessedSacrament from "./assets/Blessed Sacrament.jpg";
 
 function App() {
   return (
