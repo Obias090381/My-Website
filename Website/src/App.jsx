@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import About from "./Pages/About";
+import Contact from "./Pages/Contact";
 
 function App() {
   return (
@@ -8,13 +9,14 @@ function App() {
       <h1>Friends of the Eucharist</h1>
 
       <nav>
-        <Link to="/About">About Us</Link>
+        <Link to="/Contact">Contact Us</Link>
       </nav>
 
       <hr />
 
       <Routes>
         <Route path="/About" element={<About />} />
+        <Route path="/Contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
   );
