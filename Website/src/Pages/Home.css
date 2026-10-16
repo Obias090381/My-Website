@@ -5,10 +5,10 @@
   overflow: hidden;
 }
 
-.Blessed Sacrament.jpeg {
+.Blessed-image {
   display: block;
-  width: 250px;
+  width: 250px !important;
+  height: auto !important;
   max-width: 100%;
-  height: auto;
   object-fit: contain;
 }

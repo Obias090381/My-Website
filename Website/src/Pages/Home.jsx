@@ -8,9 +8,12 @@ function Home() {
         <p>This is the Home page.</p>
 
         <div>
-            <img src={blessedSacrament} alt="Blessed Sacrament" />
+            <img 
+            className="blessed-image"
+            src={blessedSacrament} 
+            alt="Blessed Sacrament" 
+            />
         </div>
-    
 
     </section>
   );
