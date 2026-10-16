@@ -110,9 +110,4 @@ code {
   background: var(--code-bg);
 }
 
-img[src*="Blessed Sacrament.jpg"] {
-  width: 50%;
-  height: auto;
-  border-radius: 8px;
-  margin-top: 16px;
-}
+

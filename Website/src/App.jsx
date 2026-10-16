@@ -10,17 +10,16 @@ function App() {
       <h1>Friends of the Eucharist</h1>
 
       <nav>
-        <Link to="/Home">Home</Link>
+        <Link to="/">Home</Link>
         <Link to="/About">About Us</Link>
         <Link to="/Contact">Contact Us</Link>
       </nav>
       <hr />
 
       <Routes>
-        <Route path="/Home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/About" element={<About />} />
         <Route path="/Contact" element={<Contact />} />
-
       </Routes>
     </BrowserRouter>
   );

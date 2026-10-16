@@ -5,10 +5,9 @@
   overflow: hidden;
 }
 
-.Blessed-image {
+.blessed-image {
   display: block;
-  width: 250px !important;
-  height: auto !important;
+  width: 250px;
+  height: auto;
   max-width: 100%;
-  object-fit: contain;
 }
