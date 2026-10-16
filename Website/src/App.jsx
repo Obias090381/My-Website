@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import FOEucharist from "./Pages/FOEucharist";
 import Contact from "./Pages/Contact";
 import Home from "./Pages/Home";
-import FOEucharist from "./Pages/Pastoral Visitation";
+import PastoralVisitation from "./Pages/Pastoral Visitation";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/FOEucharist" element={<FOEucharist />} />
-        <Route path="/Pastoral Visitation" element={<Pastoral Visitation />} />
+        <Route path="/Pastoral Visitation" element={<PastoralVisitation />} />
         <Route path="/Contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
