@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import FOEucharist from "./Pages/FOEucharist";
 import Contact from "./Pages/Contact";
 import Home from "./Pages/Home";
+import FOEucharist from "./Pages/Pastoral Visitation";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <nav>
         <Link to="/">Home</Link>
         <Link to="/FOEucharist">FOEucharist</Link>
+        <Link to="/Pastoral Visitation">Pastoral Visitation</Link>
         <Link to="/Contact">Contact Us</Link>
       </nav>
       <hr />
@@ -19,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/FOEucharist" element={<FOEucharist />} />
+        <Route path="/Pastoral Visitation" element={<Pastoral Visitation />} />
         <Route path="/Contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
