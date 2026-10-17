@@ -12,7 +12,8 @@ function App() {
       <div>
         <header>
         <section className="intro">
-      <h1 className="main-title"> A PASTOR'S JOURNEY: Faith, Vision and Service</h1>
+      <h1 className="main-title"> A PASTOR'S JOURNEY: 
+        Faith, Vision and Service</h1>
         </section>
           <h4><p className="subtitle">
             An unofficial website for the Parishes of St. Mary's in Winneconne & Omro, Wisconsin, USA.
