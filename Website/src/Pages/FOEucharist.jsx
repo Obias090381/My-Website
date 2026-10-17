@@ -17,7 +17,7 @@ function FOEucharist() {
           />
         </div>
 
-        <h2 className="sub-title"></h2>
+        <section className="eucharist-content">
         <h2>
           To help our parish become a community that encounters Jesus in the
           Eucharist, grows through prayer and formation, celebrates Mass with
@@ -33,7 +33,6 @@ function FOEucharist() {
           and share the gifts of the Eucharist with the wider community.
         </h2>
 
-        <ol className="sub-title"></ol>
         <ol>
           <li>
             Gather for prayer and adoration: Hold regular Holy Hours and spend time
@@ -65,6 +64,7 @@ function FOEucharist() {
             the Eucharist.
           </li>
         </ol>
+        </section>
       </div>
     </section>
   );
