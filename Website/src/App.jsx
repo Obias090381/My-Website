@@ -12,10 +12,12 @@ function App() {
       <div>
         <header>
         <section className="intro">
-      <h1 className="main-title"> A PASTOR'S JOURNEY: 
+      <h1 className="main-title"> 
+        <span>A PASTOR'S JOURNEY: </span>
+        <br /> 
         Faith, Vision and Service</h1>
         </section>
-          <h4><p className="subtitle">
+          <p className="subtitle">
             An unofficial website for the Parishes of St. Mary's in Winneconne & Omro, Wisconsin, USA.
             This is an unofficial website created solely to help inform and support the
             parish community about the pastor's journey, vision and goals for the parish.
@@ -27,7 +29,6 @@ function App() {
             official information, please consult the parish's authorized communication
             channel.
             </p>
-          </h4>
         </header>
 
         <nav className="navbar">
