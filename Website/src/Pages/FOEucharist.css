@@ -1,46 +1,32 @@
 /* Main title and subtitle container */
-.intro {
-  width: 85%;
-  max-width: 1000px;
-  margin: 35px auto 25px;
-  text-align: center;
+eucharist-page {
+width: 100%;
+max-width: 900px;
+margin: 0 auto;
+padding: 40px 20px;
+text-align: center;
 }
 
-/* Main page title */
-.main-title {
-  margin: 0 0 22px;
-  color: #1d2433;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 300;
-  line-height: 1.2;
-  letter-spacing: 1px;
-  text-align: center;
-  font-style: Bold;
+.eucharist-page h1 {
+margin: 0 0 20px;
+color: #333;
+font-family: Georgia, "Times New Roman", serif;
+font-size: 42px;
 }
 
-/* Subtitle or introductory paragraph */
-.subtitle {
-  margin: 0;
-  color: #202020;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1rem, 1.7vw, 1.35rem);
-  font-weight: 300;
-  line-height: 1.5;
-  text-align: center;
-}
-
-.FOEucharist {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
+.eucharist-page p {
+margin-bottom: 30px;
+color: #555;
+font-size: 18px;
+line-height: 1.6;
 }
 
 .blessed-image {
-  display: block;
-  width: 600px;
-  height: auto;
-  max-width: 100%;
-  text-align: Center;
+display: block;
+width: 100%;
+max-width: 700px;
+height: auto;
+margin: 0 auto;
+border-radius: 8px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
