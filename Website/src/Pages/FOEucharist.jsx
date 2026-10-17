@@ -6,7 +6,7 @@ function FOEucharist() {
     <section id="FOEucharist" className="intro">
       <div>
         <h2 className="main-title"></h2>
-        <h2>Friends of the Eucharist</h2>
+        <h2>FRIENDS OF THE EUCHARIST</h2>
         <p className="subtitle">This is the Friends of the Eucharist Page.</p>
 
         <div>
