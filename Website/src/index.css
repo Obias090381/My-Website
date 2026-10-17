@@ -13,9 +13,10 @@
   color: #1d2433;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
   letter-spacing: 1px;
+  text-align: center;
 }
 
 /* Subtitle or introductory paragraph */
@@ -26,7 +27,7 @@
   font-size: clamp(1rem, 1.7vw, 1.35rem);
   font-weight: 600;
   line-height: 1.5;
-  text-align: left;
+  text-align: center;
 }
 /* Optional gold line below the subtitle */
 .intro::after {
