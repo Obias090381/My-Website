@@ -1,3 +1,34 @@
+/* Main title and subtitle container */
+.intro {
+  width: 85%;
+  max-width: 1000px;
+  margin: 35px auto 25px;
+  text-align: center;
+}
+
+/* Main page title */
+.main-title {
+  margin: 0 0 22px;
+  color: #1d2433;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  text-align: center;
+  font-style: Bold;
+}
+
+/* Subtitle or introductory paragraph */
+.subtitle {
+  margin: 0;
+  color: #202020;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1rem, 1.7vw, 1.35rem);
+  font-weight: 300;
+  line-height: 1.5;
+  text-align: center;
+
 .FOEucharist {
   width: 100%;
   display: flex;
@@ -7,7 +38,8 @@
 
 .blessed-image {
   display: block;
-  width: 400px;
+  width: 600px;
   height: auto;
   max-width: 100%;
+  text-align: Center;
 }
