@@ -34,7 +34,7 @@
 .intro::after {
   content: "";
   display: block;
-  width: 110%;
+  width: 90%;
   height: 4px;
   margin-top: 28px;
   background-color: #d9a441;
