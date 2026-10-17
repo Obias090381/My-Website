@@ -11,11 +11,9 @@ function App() {
     <BrowserRouter>
       <div>
         <header>
-          <pre>
         <section className="intro">
       <h1 className="main-title"> A PASTOR'S JOURNEY: Faith, Vision and Service</h1>
         </section>
-          </pre>
           <h4><p className="subtitle">
             An unofficial website for the Parishes of St. Mary's in Winneconne & Omro, Wisconsin, USA.
             This is an unofficial website created solely to help inform and support the
