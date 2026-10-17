@@ -13,10 +13,11 @@
   color: #1d2433;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 400;
+  font-weight: 350;
   line-height: 1.2;
   letter-spacing: 1px;
   text-align: center;
+  font-style: Bold;
 }
 
 /* Subtitle or introductory paragraph */
@@ -39,11 +40,6 @@
   background-color: #d9a441;
   align-self: center;
 }
-
-
-
-
-
 
 /* Navigation bar*/
 .navbar {
