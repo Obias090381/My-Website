@@ -1,8 +1,8 @@
 
 /* Main title and subtitle container */
 .intro {
-  width: 90%;
-  max-width: 1200px;
+  width: 85%;
+  max-width: 1000px;
   margin: 35px auto 25px;
   text-align: center;
 }
