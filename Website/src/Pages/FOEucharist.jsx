@@ -1,8 +1,19 @@
+import blessedSacrament from "../assets/Blessed Sacrament.jpg";
+import "./Home.css";
+
 function FOEucharist() {
   return (
     <section id="FOEucharist">
         <h2>Friends of the Eucharist</h2>
         <p>This is the Friends of the Eucharist Page.</p>
+      
+        <div>
+            <img 
+            className="blessed-image"
+            src={blessedSacrament} 
+            alt="Blessed Sacrament" 
+            />
+        </div>
     
       <h2>
         To help our parish become a community that encounters Jesus in the
