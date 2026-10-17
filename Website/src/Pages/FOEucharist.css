@@ -1,5 +1,5 @@
 /* Main title and subtitle container */
-eucharist-page {
+.eucharist-page {
 width: 100%;
 max-width: 900px;
 margin: 0 auto;
@@ -7,7 +7,7 @@ padding: 40px 20px;
 text-align: center;
 }
 
-.eucharist-page h1 {
+.eucharist-page h2 {
 margin: 0 0 20px;
 color: #333;
 font-family: Georgia, "Times New Roman", serif;
