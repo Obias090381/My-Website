@@ -1,5 +1,5 @@
 import blessedSacrament from "../assets/Blessed Sacrament.jpg";
-import "./Home.css";
+import "./FOEucharist.css";
 
 function FOEucharist() {
   return (
