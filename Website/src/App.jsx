@@ -13,7 +13,7 @@ function App() {
         <header>
         <section className="intro">
       <h1 className="main-title"> 
-        <span>A PASTOR'S JOURNEY: </span>
+        <span>A PRIEST'S JOURNEY: </span>
         <br /> 
         Faith, Vision and Service</h1>
         </section>
