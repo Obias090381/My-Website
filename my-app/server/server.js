@@ -20,7 +20,6 @@ CREATE TABLE IF NOT EXISTS users (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 name TEXT NOT NULL,
 email TEXT NOT NULL UNIQUE,
-password TEXT NOT NULL,
 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )
 `).run();
@@ -77,12 +76,12 @@ error: "Could not retrieve users."
 // Register a new user
 app.post("/api/register", (req, res) => {
 try {
-const { name, email, password } = req.body;
+const { name, email } = req.body;
 
-if (!name || !email || !password) {
+if (!name || !email) {
 return res.status(400).json({
 success: false,
-message: "Name, email, and password are required."
+message: "Name, and email are required."
 });
 }
 
@@ -98,11 +97,11 @@ message: "This email is already registered."
 }
 
 const statement = db.prepare(`
-INSERT INTO users (name, email, password)
-VALUES (?, ?, ?)
+INSERT INTO users (name, email)
+VALUES (?, ?)
 `);
 
-const result = statement.run(name, email, password);
+const result = statement.run(name, email);
 
 res.status(201).json({
 success: true,
