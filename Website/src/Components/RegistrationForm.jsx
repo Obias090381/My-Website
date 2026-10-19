@@ -1,26 +1,13 @@
 import { useState } from "react";
 
 function RegistrationForm() {
-const [formData, setFormData] = useState({
-name: "",
-email: "",
-});
-
+const [name, setName] = useState("");
+const [email, setEmail] = useState("");
 const [message, setMessage] = useState("");
-const [error, setError] = useState("");
 
-function handleChange(event) {
-setFormData({
-...formData,
-[event.target.name]: event.target.value
-});
-}
-
-async function handleSubmit(event) {
+const handleSubmit = async (event) => {
 event.preventDefault();
-
 setMessage("");
-setError("");
 
 try {
 const response = await fetch("http://localhost:5000/api/register", {
@@ -28,69 +15,55 @@ method: "POST",
 headers: {
 "Content-Type": "application/json"
 },
- body: JSON.stringify({
-    name: formData.name,
-    email: formData.email
+body: JSON.stringify({
+name,
+email
 })
 });
 
-const data = await response.json();
+const result = await response.json();
 
 if (!response.ok) {
-setError(data.error || "Registration failed");
-return;
+throw new Error(result.message || "Failed to save information.");
 }
 
-setMessage(data.message);
-
-setFormData({
-name: "",
-email: ""
-});
+setMessage("Information saved successfully.");
+setName("");
+setEmail("");
 } catch (error) {
-setError("Could not connect to the server");
+console.error("Registration error:", error);
+setMessage(`Error: ${error.message}`);
 }
-}
+};
 
 return (
-<div>
-<h2>Registration</h2>
-
 <form onSubmit={handleSubmit}>
-<div>
-<label>Name</label>
-<br />
+<h2>Register</h2>
+
+<label htmlFor="name">Name</label>
 <input
-type="text"
+id="name"
 name="name"
-value={formData.name}
-onChange={handleChange}
+type="text"
+value={name}
+onChange={(event) => setName(event.target.value)}
 required
 />
-</div>
 
-<br />
-
-<div>
-<label>Email</label>
-<br />
+<label htmlFor="email">Email</label>
 <input
-type="email"
+id="email"
 name="email"
-value={formData.email}
-onChange={handleChange}
+type="email"
+value={email}
+onChange={(event) => setEmail(event.target.value)}
 required
 />
-</div>
 
-<br />
+<button type="submit">Submit</button>
 
-<button type="submit">Register</button>
+{message && <p>{message}</p>}
 </form>
-
-{message && <p style={{ color: "green" }}>{message}</p>}
-{error && <p style={{ color: "red" }}>{error}</p>}
-</div>
 );
 }
 
