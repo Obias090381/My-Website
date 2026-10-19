@@ -61,10 +61,10 @@ required
 />
 
 <input
-type="text"
+type="password"
 placeholder="Enter your password"
-value={name}
-onChange={(event) => setName(event.target.value)}
+value={password}
+onChange={(event) => setPassword(event.target.value)}
 required
 />
 
