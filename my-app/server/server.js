@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const Database = require("better-sqlite3");
+const path = require("path");
 
 const app = express();
 const PORT = 5000;
@@ -9,73 +10,112 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-// Open or create the SQLite database
-const db = new Database("database.sqlite");
+// Create or open the SQLite database
+const databasePath = path.join(__dirname, "database.sqlite");
+const db = new Database(databasePath);
 
-app.get("/api/db-test", (req, res) => {
-db.get("SELECT 1 AS connected", (err, row) => {
-if (err) {
-console.error("Database test failed:", err.message);
-return res.status(500).json({
-connected: false,
-error: err.message
-});
-}
-
-res.json({
-connected: true,
-message: "Database connection is working",
-result: row
-});
-});
-});
-
-// Create a users table
+// Create the users table if it does not already exist
 db.prepare(`
 CREATE TABLE IF NOT EXISTS users (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 name TEXT NOT NULL,
-email TEXT NOT NULL UNIQUE
+email TEXT NOT NULL UNIQUE,
+password TEXT NOT NULL,
+created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )
 `).run();
 
-// Test route
+console.log("Database connected successfully.");
+
+// Home route
 app.get("/", (req, res) => {
-res.send("Server is running successfully");
+res.send("Backend server is running.");
+});
+
+// Database test route
+app.get("/api/db-test", (req, res) => {
+try {
+const result = db
+.prepare("SELECT 1 AS connected")
+.get();
+
+res.json({
+connected: result.connected === 1,
+message: "Database connection is working."
+});
+} catch (error) {
+console.error("Database test failed:", error.message);
+
+res.status(500).json({
+connected: false,
+error: error.message
+});
+}
 });
 
 // Get all users
 app.get("/api/users", (req, res) => {
+try {
 const users = db
-.prepare("SELECT * FROM users ORDER BY id DESC")
+.prepare(`
+SELECT id, name, email, created_at
+FROM users
+ORDER BY id DESC
+`)
 .all();
 
 res.json(users);
+} catch (error) {
+console.error("Could not retrieve users:", error.message);
+
+res.status(500).json({
+error: "Could not retrieve users."
+});
+}
 });
 
-// Add a user
-app.post("/api/users", (req, res) => {
-const { name, email } = req.body;
+// Register a new user
+app.post("/api/register", (req, res) => {
+try {
+const { name, email, password } = req.body;
 
-if (!name || !email) {
+if (!name || !email || !password) {
 return res.status(400).json({
-error: "Name and email are required"
+success: false,
+message: "Name, email, and password are required."
 });
 }
 
-try {
-const result = db
-.prepare("INSERT INTO users (name, email) VALUES (?, ?)")
-.run(name, email);
+const existingUser = db
+.prepare("SELECT id FROM users WHERE email = ?")
+.get(email);
+
+if (existingUser) {
+return res.status(409).json({
+success: false,
+message: "This email is already registered."
+});
+}
+
+const statement = db.prepare(`
+INSERT INTO users (name, email, password)
+VALUES (?, ?, ?)
+`);
+
+const result = statement.run(name, email, password);
 
 res.status(201).json({
-id: result.lastInsertRowid,
-name,
-email
+success: true,
+message: "User registered successfully.",
+userId: result.lastInsertRowid
 });
 } catch (error) {
-res.status(400).json({
-error: "This email may already be registered"
+console.error("Registration failed:", error.message);
+
+res.status(500).json({
+success: false,
+message: "Registration failed.",
+error: error.message
 });
 }
 });
