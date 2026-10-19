@@ -8,7 +8,7 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-const db = new Database("database.sqlite");
+const db = new Database("./database.sqlite");
 
 db.prepare(`
 CREATE TABLE IF NOT EXISTS users (
@@ -19,16 +19,38 @@ email TEXT NOT NULL UNIQUE
 `).run();
 
 app.get("/", (req, res) => {
-res.send("Server is running");
+res.json({
+success: true,
+message: "Server is running"
+});
+});
+
+app.get("/api/db-test", (req, res) => {
+try {
+db.prepare("SELECT 1").get();
+
+res.json({
+success: true,
+message: "Database is connected"
+});
+} catch (error) {
+console.error(error);
+res.status(500).json({
+success: false,
+error: error.message
+});
+}
 });
 
 app.post("/api/register", (req, res) => {
+console.log("Received data:", req.body);
+
 const { name, email } = req.body;
 
 if (!name || !email) {
 return res.status(400).json({
 success: false,
-message: "Name and email are required."
+message: "Name and email are required"
 });
 }
 
@@ -42,31 +64,31 @@ const result = statement.run(name, email);
 
 res.status(201).json({
 success: true,
-message: "Information saved successfully.",
-userId: result.lastInsertRowid
+message: "User registered successfully",
+id: result.lastInsertRowid
 });
 } catch (error) {
 console.error("Database error:", error.message);
 
-if (error.code === "SQLITE_CONSTRAINT_UNIQUE") {
-return res.status(409).json({
-success: false,
-message: "This email is already registered."
-});
-}
-
 res.status(500).json({
 success: false,
-message: "Could not save information."
+message: error.message
 });
 }
 });
 
 app.get("/api/users", (req, res) => {
-const users = db.prepare("SELECT id, name, email FROM users").all();
+try {
+const users = db.prepare("SELECT * FROM users").all();
 res.json(users);
+} catch (error) {
+res.status(500).json({
+success: false,
+error: error.message
+});
+}
 });
 
 app.listen(PORT, () => {
-console.log(`Server running at http://localhost:${PORT}`);
+console.log(`Server is running at http://localhost:${PORT}`);
 });
