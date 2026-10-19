@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS users (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 name TEXT NOT NULL,
 email TEXT NOT NULL UNIQUE
+password TEXT NOT NULL
 )
 `).run();
 
@@ -45,22 +46,22 @@ error: error.message
 app.post("/api/register", (req, res) => {
 console.log("Received data:", req.body);
 
-const { name, email } = req.body;
+const { name, email, password } = req.body;
 
-if (!name || !email) {
+if (!name || !email || !password) {
 return res.status(400).json({
 success: false,
-message: "Name and email are required"
+message: "Name, email and password are required"
 });
 }
 
 try {
 const statement = db.prepare(`
-INSERT INTO users (name, email)
+INSERT INTO users (name, email, password)
 VALUES (?, ?)
 `);
 
-const result = statement.run(name, email);
+const result = statement.run(name, email, password);
 
 res.status(201).json({
 success: true,

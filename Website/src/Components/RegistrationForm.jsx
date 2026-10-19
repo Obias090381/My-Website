@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function Registration() {
 const [name, setName] = useState("");
 const [email, setEmail] = useState("");
-const [message, setMessage] = useState("");
+const [password, setMessage] = useState("");
 
 const handleSubmit = async (event) => {
 event.preventDefault();
@@ -17,7 +17,8 @@ headers: {
 },
 body: JSON.stringify({
 name: name,
-email: email
+email: email,
+password: password
 })
 });
 
@@ -30,6 +31,7 @@ throw new Error(result.message || "Registration failed");
 setMessage("Saved successfully!");
 setName("");
 setEmail("");
+setPassword("");
 
 console.log("Server response:", result);
 } catch (error) {
@@ -55,6 +57,14 @@ type="email"
 placeholder="Enter your email"
 value={email}
 onChange={(event) => setEmail(event.target.value)}
+required
+/>
+
+<input
+type="text"
+placeholder="Enter your password"
+value={name}
+onChange={(event) => setName(event.target.value)}
 required
 />
 
