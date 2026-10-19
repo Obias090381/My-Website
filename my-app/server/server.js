@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 // Open or create the SQLite database
-const db = new Database("database.sqlite");
+const db = new sqlite3.Database("database.sqlite");
 
 // Create a users table
 db.prepare(`
