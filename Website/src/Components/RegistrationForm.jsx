@@ -4,7 +4,6 @@ function RegistrationForm() {
 const [formData, setFormData] = useState({
 name: "",
 email: "",
-password: ""
 });
 
 const [message, setMessage] = useState("");
@@ -31,8 +30,7 @@ headers: {
 },
  body: JSON.stringify({
     name: formData.name,
-    email: formData.email,
-    password: formData.password
+    email: formData.email
 })
 });
 
@@ -47,8 +45,7 @@ setMessage(data.message);
 
 setFormData({
 name: "",
-email: "",
-password: ""
+email: ""
 });
 } catch (error) {
 setError("Could not connect to the server");
@@ -81,20 +78,6 @@ required
 type="email"
 name="email"
 value={formData.email}
-onChange={handleChange}
-required
-/>
-</div>
-
-<br />
-
-<div>
-<label>Password</label>
-<br />
-<input
-type="password"
-name="password"
-value={formData.password}
 onChange={handleChange}
 required
 />
