@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-function RegistrationForm() {
+export default function Registration() {
 const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [message, setMessage] = useState("");
 
 const handleSubmit = async (event) => {
 event.preventDefault();
-setMessage("");
+setMessage("Sending...");
 
 try {
 const response = await fetch("http://localhost:5000/api/register", {
@@ -16,55 +16,51 @@ headers: {
 "Content-Type": "application/json"
 },
 body: JSON.stringify({
-name,
-email
+name: name,
+email: email
 })
 });
 
 const result = await response.json();
 
 if (!response.ok) {
-throw new Error(result.message || "Failed to save information.");
+throw new Error(result.message || "Registration failed");
 }
 
-setMessage("Information saved successfully.");
+setMessage("Saved successfully!");
 setName("");
 setEmail("");
+
+console.log("Server response:", result);
 } catch (error) {
-console.error("Registration error:", error);
+console.error("Error:", error);
 setMessage(`Error: ${error.message}`);
 }
 };
 
 return (
 <form onSubmit={handleSubmit}>
-<h2>Register</h2>
+<h2>Registration</h2>
 
-<label htmlFor="name">Name</label>
 <input
-id="name"
-name="name"
 type="text"
+placeholder="Enter your name"
 value={name}
 onChange={(event) => setName(event.target.value)}
 required
 />
 
-<label htmlFor="email">Email</label>
 <input
-id="email"
-name="email"
 type="email"
+placeholder="Enter your email"
 value={email}
 onChange={(event) => setEmail(event.target.value)}
 required
 />
 
-<button type="submit">Submit</button>
+<button type="submit">Register</button>
 
-{message && <p>{message}</p>}
+<p>{message}</p>
 </form>
 );
 }
-
-export default RegistrationForm;
