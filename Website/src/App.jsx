@@ -5,6 +5,7 @@ import Contact from "./Pages/Contact";
 import Home from "./Pages/Home";
 import PastoralVisitation from "./Pages/Pastoral Visitation";
 import Ministries from "./Pages/Ministries";
+import RegistrationForm from "./Components/RegistrationForm";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path="/Ministries" element={<Ministries />} />
           <Route path="/Contact" element={<Contact />} />
         </Routes>
+        <RegistrationForm />
       </div>
     </BrowserRouter>
   );
