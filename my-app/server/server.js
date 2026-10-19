@@ -14,8 +14,8 @@ db.prepare(`
 CREATE TABLE IF NOT EXISTS users (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 name TEXT NOT NULL,
-email TEXT NOT NULL UNIQUE
-password TEXT NOT NULL
+email TEXT NOT NULL, 
+password TEXT NOT NULL UNIQUE
 )
 `).run();
 
@@ -58,7 +58,7 @@ message: "Name, email and password are required"
 try {
 const statement = db.prepare(`
 INSERT INTO users (name, email, password)
-VALUES (?, ?)
+VALUES (?, ?, ?)
 `);
 
 const result = statement.run(name, email, password);
