@@ -82,7 +82,10 @@ try {
 const users = db.prepare("SELECT * FROM users").all();
 res.json(users);
 } catch (error) {
+console.error(error);
 res.status(500).json({
+    message: "Could not retrieve users"
+    ,
 success: false,
 error: error.message
 });
