@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 export default function Registration() {
 const [name, setName] = useState("");
 const [email, setEmail] = useState("");
@@ -11,7 +13,7 @@ event.preventDefault();
 setMessage("Sending...");
 
 try {
-const response = await fetch("http://localhost:5000/api/register", {
+const response = await fetch(`${API_URL}/api/register`, {
 method: "POST",
 headers: {
 "Content-Type": "application/json"
