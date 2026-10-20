@@ -1,6 +1,6 @@
-import express from "express";
-import cors from "cors";
-import Database from "better-sqlite3";
+const express = require("express");
+const cors = require("cors");
+const Database = require("better-sqlite3");
 
 const app = express();
 const PORT = 5000;
@@ -14,32 +14,81 @@ db.prepare(`
 CREATE TABLE IF NOT EXISTS users (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 name TEXT NOT NULL,
-email TEXT NOT NULL UNIQUE,
-password TEXT NOT NULL
+email TEXT NOT NULL UNIQUE
 )
 `).run();
 
-app.post("/api/register", (req, res) => {
-console.log("Received registration data:", req.body);
+app.get("/", (req, res) => {
+res.json({
+success: true,
+message: "Server is running"
+});
+});
 
-const { name, email, password } = req.body;
-
+app.get("/api/db-test", (req, res) => {
 try {
-const result = db.prepare(`
-INSERT INTO users (name, email, password)
-VALUES (?, ?, ?)
-`).run(name, email, password);
+db.prepare("SELECT 1").get();
 
-res.status(201).json({
-message: "User saved successfully",
-id: result.lastInsertRowid
+res.json({
+success: true,
+message: "Database is connected"
 });
 } catch (error) {
 console.error(error);
-res.status(500).json({ message: error.message });
+res.status(500).json({
+success: false,
+error: error.message
+});
+}
+});
+
+app.post("/api/register", (req, res) => {
+console.log("Received data:", req.body);
+
+const { name, email } = req.body;
+
+if (!name || !email) {
+return res.status(400).json({
+success: false,
+message: "Name and email are required"
+});
+}
+
+try {
+const statement = db.prepare(`
+INSERT INTO users (name, email)
+VALUES (?, ?)
+`);
+
+const result = statement.run(name, email);
+
+res.status(201).json({
+success: true,
+message: "User registered successfully",
+id: result.lastInsertRowid
+});
+} catch (error) {
+console.error("Database error:", error.message);
+
+res.status(500).json({
+success: false,
+message: error.message
+});
+}
+});
+
+app.get("/api/users", (req, res) => {
+try {
+const users = db.prepare("SELECT * FROM users").all();
+res.json(users);
+} catch (error) {
+res.status(500).json({
+success: false,
+error: error.message
+});
 }
 });
 
 app.listen(PORT, () => {
-console.log(`Server running at http://localhost:${PORT}`);
+console.log(`Server is running at http://localhost:${PORT}`);
 });
