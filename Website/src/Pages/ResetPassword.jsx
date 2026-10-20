@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || "";
 
 async function readResponse(response) {
+  const contentType = response.headers.get("content-type") || "";
+  if (!contentType.includes("application/json")) {
+    throw new Error(
+      "The reset API returned a webpage instead of JSON. Check that the backend is running on port 5000 and restart the website dev server."
+    );
+  }
+
   const result = await response.json();
   if (!response.ok) {
     throw new Error(result.message || "The request could not be completed");

@@ -29,7 +29,8 @@ after opening a new terminal. The website's **Reset Password** page emails a
 one-hour, single-use link; the database stores only a hash of its token and a
 hash of the new password.
 
-The website defaults to `http://localhost:5000` for its backend. To use a
+During local development, the Vite dev server proxies `/api` requests to the
+backend on port 5000. Restart Vite after changing its configuration. To use a
 deployed backend, configure `VITE_API_URL` in the website's build environment
 with the backend's public origin. This URL is public configuration; never put
 the Resend API key in a `VITE_` variable.
