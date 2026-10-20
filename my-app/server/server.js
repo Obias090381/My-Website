@@ -14,7 +14,7 @@ db.prepare(`
 CREATE TABLE IF NOT EXISTS users (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 name TEXT NOT NULL,
-email TEXT NOT NULL,UNIQUE 
+email TEXT NOT NULL UNIQUE, 
 password TEXT NOT NULL
 )
 `).run();
@@ -69,7 +69,13 @@ message: "User registered successfully",
 id: result.lastInsertRowid
 });
 } catch (error) {
-console.error("Database error:", error.message);
+if (error.code === "SQLITE_CONSTRAINT_UNIQUE") {
+    return res.status(409).json({
+        success: false,
+        message: "Email already exists"
+    });
+
+}
 
 res.status(500).json({
 success: false,
