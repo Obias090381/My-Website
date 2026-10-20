@@ -16,7 +16,10 @@ services:
       - key: DB_PATH
         value: /var/data/database.sqlite
       - key: APP_URL
-        sync: false
+        fromService:
+          type: web
+          name: my-website-site
+          property: host
       - key: RESEND_API_KEY
         sync: false
       - key: RESEND_FROM_EMAIL

@@ -46,19 +46,16 @@ service instance; don't scale the API to multiple instances.
 
 1. Push the repository to GitHub.
 2. In Render, choose **New > Blueprint**, connect this GitHub repository, and
-   deploy the `render.yaml` Blueprint. Render prompts for `RESEND_API_KEY`,
-   `RESEND_FROM_EMAIL`, and `APP_URL`. Enter your Resend API key, verified
-   sender, and a temporary current website URL for `APP_URL`.
+   deploy the `render.yaml` Blueprint. Render prompts for `RESEND_API_KEY` and
+   `RESEND_FROM_EMAIL`; enter your Resend API key and verified sender. The
+   Blueprint connects the API's `APP_URL` to the static site's hostname.
 3. Render creates the `my-website-api` and `my-website-site` services. The
    Blueprint connects the website build to the API hostname. Check both
    services' **Events** and **Logs** until deployment succeeds.
 4. Open the API's URL from the Render dashboard. Its root should return JSON
    saying the server is running. Open the static site's URL and test a direct
    refresh at `/reset-password`.
-5. In the API service's **Environment** settings, update `APP_URL` to the
-   static site's public Render URL, then save and redeploy the API. Reset
-   emails will then link back to the Render-hosted website.
-6. Request a reset using a registered email. Confirm Resend accepts the
+5. Request a reset using a registered email. Confirm Resend accepts the
    verified sender and the email link opens the new Render static site.
 
 Render's disk persists across deploys, but a new service starts with a new,
