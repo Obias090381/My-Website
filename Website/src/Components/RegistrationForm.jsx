@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { data } from "react-router-dom";
 
 export default function Registration() {
 const [name, setName] = useState("");
@@ -23,32 +24,29 @@ method: "POST",
 headers: {
 "Content-Type": "application/json"
 },
-body: JSON.stringify({
-name: name,
-email: email,
-password: password
-})
+body: JSON.stringify(user)
 });
 
 const result = await response.json();
+
+console.log("Server response:", 
+response.status, data);
 
 if (!response.ok) {
 throw new Error(result.message || "Registration failed");
 }
 
-alert(result.message || "Registration successful");
+alert("User registered successfully");
+} catch (error) {
+    console.error("Request failed:", error);
+    alert(error.message);
+}
+};
 
 setMessage("Saved successfully!");
 setName("");
 setEmail("");
 setPassword("");
-
-console.log("Server response:", result);
-} catch (error) {
-console.error("Error:", error);
-setMessage(`Error: ${error.message}`);
-}
-};
 
 return (
 <form onSubmit={handleSubmit}>
