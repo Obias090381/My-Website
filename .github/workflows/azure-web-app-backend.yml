@@ -1,0 +1,41 @@
+name: Deploy Express backend to Azure App Service
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "my-app/server/**"
+      - ".github/workflows/azure-web-app-backend.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check backend
+        working-directory: my-app/server
+        run: |
+          npm ci
+          node --check server.js
+
+      - name: Prepare deployment package
+        run: |
+          mkdir -p deploy/server
+          cp my-app/server/package.json my-app/server/package-lock.json my-app/server/server.js deploy/server/
+
+      - name: Deploy backend
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ vars.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: deploy/server

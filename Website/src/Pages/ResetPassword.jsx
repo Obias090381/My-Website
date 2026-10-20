@@ -7,7 +7,7 @@ async function readResponse(response) {
   const contentType = response.headers.get("content-type") || "";
   if (!contentType.includes("application/json")) {
     throw new Error(
-      "The reset API returned a webpage instead of JSON. Check that the backend is running on port 5000 and restart the website dev server."
+      "The reset API returned a webpage instead of JSON. For the published website, set the GitHub Actions variable VITE_API_URL to your Azure App Service URL and redeploy the website."
     );
   }
 

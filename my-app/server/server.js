@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const Database = require("better-sqlite3");
+const fs = require("node:fs");
+const path = require("node:path");
 const {
   createHash,
   randomBytes,
@@ -13,7 +15,10 @@ const PORT = Number(process.env.PORT || 5000);
 app.use(cors());
 app.use(express.json());
 
-const db = new Database("./database.sqlite");
+const dbPath = process.env.DB_PATH || path.join(__dirname, "database.sqlite");
+fs.mkdirSync(path.dirname(path.resolve(dbPath)), { recursive: true });
+const db = new Database(dbPath);
+db.pragma("foreign_keys = ON");
 
 db.prepare(`
 CREATE TABLE IF NOT EXISTS users (
