@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
-const configuredApiUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_HOST || "";
+const configuredApiUrl = import.meta.env.VITE_API_HOST || "";
 const API_URL = configuredApiUrl && !/^https?:\/\//i.test(configuredApiUrl)
   ? `https://${configuredApiUrl}`
   : configuredApiUrl;
@@ -10,7 +10,7 @@ async function readResponse(response) {
   const contentType = response.headers.get("content-type") || "";
   if (!contentType.includes("application/json")) {
     throw new Error(
-      "The reset API returned a webpage instead of JSON. Check the Render VITE_API_HOST setting and confirm the backend service is deployed."
+      "The reset API returned a webpage instead of JSON. Check the Render API service and its VITE_API_HOST connection."
     );
   }
 

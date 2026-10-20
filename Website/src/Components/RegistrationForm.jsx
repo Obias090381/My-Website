@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const configuredApiUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_HOST || "";
+const configuredApiUrl = import.meta.env.VITE_API_HOST || "";
 const API_URL = configuredApiUrl && !/^https?:\/\//i.test(configuredApiUrl)
   ? `https://${configuredApiUrl}`
   : configuredApiUrl;
