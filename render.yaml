@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: my-website-api
+    runtime: node
+    region: oregon
+    plan: starter
+    rootDir: my-app/server
+    buildCommand: npm ci
+    startCommand: npm start
+    autoDeploy: true
+    disk:
+      name: app-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DB_PATH
+        value: /var/data/database.sqlite
+      - key: APP_URL
+        value: https://lemon-bay-09c679110.6.azurestaticapps.net
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM_EMAIL
+        sync: false

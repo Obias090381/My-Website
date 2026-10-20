@@ -35,36 +35,31 @@ deployed backend, configure `VITE_API_URL` in the website's build environment
 with the backend's public origin. This URL is public configuration; never put
 the Resend API key in a `VITE_` variable.
 
-## Deploy to Azure App Service
+## Deploy the backend to Render
 
-The Static Web App hosts the website only. Deploy this Express API separately
-to a Linux Azure App Service using Node.js 22.
+The repository's root `render.yaml` defines the Express web service and mounts a
+persistent disk at `/var/data` for SQLite. Persistent disks require a paid Render
+web-service plan. SQLite here is for one running service instance; don't scale
+the service to multiple instances.
 
-1. Create a Linux Web App in Azure with the Node.js 22 LTS runtime. Configure
-   its startup command as `npm start` if Azure does not detect the package
-   start script automatically.
-2. In the Web App's **Configuration > Application settings**, add:
-   - `DB_PATH` = `/home/data/database.sqlite`
-   - `APP_URL` = `https://lemon-bay-09c679110.6.azurestaticapps.net`
-   - `RESEND_API_KEY` = your Resend API key
-   - `RESEND_FROM_EMAIL` = your verified Resend sender
-   - `SCM_DO_BUILD_DURING_DEPLOYMENT` = `true`
-3. In GitHub, open **Settings > Secrets and variables > Actions** and add:
-   - Actions variable `AZURE_WEBAPP_NAME` = the Web App name
-   - Actions secret `AZURE_WEBAPP_PUBLISH_PROFILE` = the Web App's publish
-     profile XML (download it from the Web App's overview)
-   - Actions variable `VITE_API_URL` = `https://<your-web-app-name>.azurewebsites.net`
-4. Push the changes to `main`. The backend workflow deploys the Express server;
-   the Static Web Apps workflow rebuilds the frontend with the configured API
-   URL. Check both workflows in GitHub **Actions**. Test the deployed API by
-   opening `https://<your-web-app-name>.azurewebsites.net/`; it should return
-   a JSON server-running message.
+1. Push the repository to GitHub.
+2. In Render, choose **New > Blueprint**, connect this GitHub repository, and
+   deploy the `render.yaml` Blueprint. Render prompts for `RESEND_API_KEY` and
+   `RESEND_FROM_EMAIL`; enter your Resend API key and verified sender.
+3. After the service is created, copy its public URL from the Render dashboard,
+   such as `https://my-website-api.onrender.com`. Open its root URL in a browser;
+   it should return JSON saying the server is running.
+4. In GitHub, open **Settings > Secrets and variables > Actions > Variables**
+   and set `VITE_API_URL` to the Render service URL, with no trailing slash.
+   The Static Web Apps workflow passes this variable into the website build.
+5. In GitHub **Actions**, rerun the Azure Static Web Apps workflow (or push a
+   new commit) so the published website rebuilds with the Render URL.
 
-The deployment package intentionally excludes `database.sqlite` so deploying
-code cannot overwrite hosted user data. App Service starts with a new SQLite
-database unless you copy your existing local database to `/home/data/database.sqlite`
-once before relying on the hosted app. The server creates `/home/data` if it
-doesn't exist. Keep a backup before transferring data.
-SQLite on App Service is suitable for a small, single-instance app; don't scale
-the Web App to multiple instances because each instance would not safely share
-the same SQLite database.
+The `APP_URL` Blueprint setting points reset emails to the published website.
+Update it if the website's public URL changes.
+
+Render's disk persists across deploys, but a new Render service starts with a
+new, empty database. Back up your local `database.sqlite` before migrating
+existing users. Copy that database to `/var/data/database.sqlite` using a
+secure one-time transfer before accepting registrations on the hosted service;
+don't include the database in routine application deployments.
