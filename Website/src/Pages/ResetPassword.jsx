@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
-const API_URL = import.meta.env.VITE_API_URL || "";
+const configuredApiUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_HOST || "";
+const API_URL = configuredApiUrl && !/^https?:\/\//i.test(configuredApiUrl)
+  ? `https://${configuredApiUrl}`
+  : configuredApiUrl;
 
 async function readResponse(response) {
   const contentType = response.headers.get("content-type") || "";
   if (!contentType.includes("application/json")) {
     throw new Error(
-      "The reset API returned a webpage instead of JSON. For the published website, set the GitHub Actions variable VITE_API_URL to your Azure App Service URL and redeploy the website."
+      "The reset API returned a webpage instead of JSON. Check the Render VITE_API_HOST setting and confirm the backend service is deployed."
     );
   }
 

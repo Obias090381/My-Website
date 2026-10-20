@@ -11,6 +11,10 @@ const {
 
 const app = express();
 const PORT = Number(process.env.PORT || 5000);
+const configuredAppUrl = process.env.APP_URL || "http://localhost:5173";
+const appUrl = /^https?:\/\//i.test(configuredAppUrl)
+  ? configuredAppUrl
+  : `https://${configuredAppUrl}`;
 
 app.use(cors());
 app.use(express.json());
@@ -151,7 +155,7 @@ app.post("/api/password-reset/request", async (req, res) => {
     const expiresAt = Date.now() + 60 * 60 * 1000;
     const resetUrl = new URL(
       `/reset-password?token=${encodeURIComponent(token)}`,
-      process.env.APP_URL || "http://localhost:5173"
+      appUrl
     ).toString();
 
     try {

@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL || "";
+const configuredApiUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_HOST || "";
+const API_URL = configuredApiUrl && !/^https?:\/\//i.test(configuredApiUrl)
+  ? `https://${configuredApiUrl}`
+  : configuredApiUrl;
 
 export default function Registration() {
 const [name, setName] = useState("");
