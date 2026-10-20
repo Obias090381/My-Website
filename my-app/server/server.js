@@ -18,6 +18,12 @@ email TEXT NOT NULL UNIQUE
 )
 `).run();
 
+const userColumns = db.pragma("table_info(users)");
+
+if (!userColumns.some((column) => column.name === "password_hash")) {
+  db.exec("ALTER TABLE users ADD COLUMN password_hash TEXT");
+}
+
 app.get("/", (req, res) => {
 res.json({
 success: true,
