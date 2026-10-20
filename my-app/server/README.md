@@ -47,8 +47,11 @@ service instance; don't scale the API to multiple instances.
 1. Push the repository to GitHub.
 2. In Render, choose **New > Blueprint**, connect this GitHub repository, and
    deploy the `render.yaml` Blueprint. Render prompts for `RESEND_API_KEY` and
-   `RESEND_FROM_EMAIL`; enter your Resend API key and verified sender. The
-   Blueprint connects the API's `APP_URL` to the static site's hostname.
+   `RESEND_FROM_EMAIL`; enter your Resend API key and verified sender. It also
+   prompts for `APP_URL`; enter the website URL, for example
+   `https://my-website-site.onrender.com`. Confirm the actual static-site URL in
+   the Render dashboard after creation, then update `APP_URL` in the API
+   service's Environment settings if Render assigned a different URL.
 3. Render creates the `my-website-api` and `my-website-site` services. The
    Blueprint connects the website build to the API hostname. Check both
    services' **Events** and **Logs** until deployment succeeds.
