@@ -8,7 +8,14 @@ const [message, setMessage] = useState("");
 
 const handleSubmit = async (event) => {
 event.preventDefault();
-setMessage("Sending...");
+
+const user = {
+    name,
+    email,
+    password
+};
+
+console.log("Sending:", user);
 
 try {
 const response = await fetch("http://localhost:5000/api/register", {
