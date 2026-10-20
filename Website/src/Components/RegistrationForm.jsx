@@ -29,6 +29,8 @@ if (!response.ok) {
 throw new Error(result.message || "Registration failed");
 }
 
+alert(result.message || "Registration successful");
+
 setMessage("Saved successfully!");
 setName("");
 setEmail("");
@@ -46,8 +48,6 @@ return (
 <h2>Registration</h2>
 
 <input
-type="text"
-placeholder="Enter your name"
 value={name}
 onChange={(event) => setName(event.target.value)}
 required
@@ -55,7 +55,6 @@ required
 
 <input
 type="email"
-placeholder="Enter your email"
 value={email}
 onChange={(event) => setEmail(event.target.value)}
 required
@@ -63,7 +62,6 @@ required
 
 <input
 type="password"
-placeholder="Enter your password"
 value={password}
 onChange={(event) => setPassword(event.target.value)}
 required
