@@ -1,38 +1,46 @@
 # A Priest's Journey website
 
-This is the React frontend, built with Vite. The frontend can be deployed to
-Vercel while the API and its persistent SQLite database remain on Render.
+The Vite/React frontend and API run in one Vercel project. User accounts and
+password-reset tokens are stored in Neon Postgres; the API does not rely on
+local function disk storage.
 
-## Deploy the frontend to Vercel
+## Deploy to Vercel
 
-1. Import this repository into Vercel.
-2. Set the project **Root Directory** to `Website`.
-3. Use the Vite framework preset, build command `npm run build`, and output
+1. Import this repository into Vercel and set the project **Root Directory** to
+   `Website`.
+2. Use the Vite framework preset, build command `npm run build`, and output
    directory `dist`.
-4. Add the `VITE_API_HOST` environment variable in the Vercel project settings.
-   Set it to the Render API service hostname (for example,
-   `my-website-api.onrender.com`) or its full `https://` URL. Add it for each
-   Vercel environment you deploy (Production, Preview, or Development).
-5. Deploy or redeploy the project after setting the environment variable.
+3. Connect a Neon Postgres database through the Vercel Marketplace. Confirm the
+   project has the `DATABASE_URL` environment variable in Production and any
+   Preview environments that need database access.
+4. Set `RESEND_API_KEY` and `RESEND_FROM_EMAIL` in the Vercel project settings
+   to enable password-reset email. Never use a `VITE_` prefix for secrets.
+5. Deploy the project. Vercel serves the `/api/*` functions alongside the
+   frontend; the Vercel rewrite serves client-side routes such as
+   `/reset-password`.
 
-The Vercel rewrite configuration serves the React app for client-side routes
-such as `/reset-password`.
+The API creates its database tables on the first request. The health endpoint
+is `/api/db-test`. If a deployment returns HTTP 405 for an API request, check
+the Vercel deployment's Functions list and runtime logs.
 
-If an API request returns HTTP 405, verify that `VITE_API_HOST` is set to the
-actual public URL of the Render API service (not the Vercel site URL), then
-redeploy the frontend. Vite embeds this variable when building the site.
+## Import existing SQLite accounts
 
-## Connect the Render API
-
-Keep the API service and its persistent disk on Render. In the Render API
-service's environment settings, set `APP_URL` to the deployed Vercel site's
-URL (for example, `https://your-project.vercel.app`). This ensures password
-reset links return to the Vercel site. Keep the existing `DB_PATH` disk
-configuration and configure `RESEND_API_KEY` and `RESEND_FROM_EMAIL` on Render
-for password-reset email.
+The SQLite database is preserved at `my-app/server/database.sqlite` as a
+migration source. Follow [the migration instructions](../my-app/server/README.md)
+before accepting registrations in the new database. The migration copies
+account IDs, names, email addresses, and password hashes; it intentionally
+does not copy password-reset tokens. To import a downloaded backup from a
+previous live service, set `SQLITE_PATH` to that database file.
 
 ## Local development
 
-Run `npm run dev` from this directory. The Vite development server proxies
-`/api` requests to `http://127.0.0.1:5000`; run the API locally to use
-registration and password-reset features.
+Use the Vercel CLI from this directory so local requests reach both Vite and
+the `/api/*` functions:
+
+```powershell
+npx vercel dev
+```
+
+Configure `DATABASE_URL`, `RESEND_API_KEY`, and `RESEND_FROM_EMAIL` in Vercel or
+in a local `.env.local` file. `APP_URL` can be set to `http://localhost:3000`
+for local password-reset links; otherwise, Vercel's deployment URL is used.

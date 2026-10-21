@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { getApiBaseUrl, readApiResponse } from "../utils/api";
+import { readApiResponse } from "../utils/api";
 
 function ResetPassword() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -20,7 +20,7 @@ function ResetPassword() {
     setIsError(false);
 
     try {
-      const response = await fetch(`${getApiBaseUrl()}/api/password-reset/request`, {
+      const response = await fetch("/api/password-reset/request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -48,7 +48,7 @@ function ResetPassword() {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch(`${getApiBaseUrl()}/api/password-reset/confirm`, {
+      const response = await fetch("/api/password-reset/confirm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, password }),

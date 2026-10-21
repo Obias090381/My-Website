@@ -1,26 +1,7 @@
-export function getApiBaseUrl() {
-  const configuredApiUrl = import.meta.env.VITE_API_HOST?.trim();
-
-  if (configuredApiUrl) {
-    const apiUrl = /^https?:\/\//i.test(configuredApiUrl)
-      ? configuredApiUrl
-      : `https://${configuredApiUrl}`;
-    return apiUrl.replace(/\/+$/, "");
-  }
-
-  if (import.meta.env.DEV) {
-    return "";
-  }
-
-  throw new Error(
-    "The API URL is not configured. Set VITE_API_HOST in Vercel to your Render API service URL, then redeploy."
-  );
-}
-
 export async function readApiResponse(response) {
   if (response.status === 405) {
     throw new Error(
-      "The API returned HTTP 405 (method not allowed). The request may be reaching Vercel instead of the Render API. Set VITE_API_HOST in Vercel to your Render API service URL, then redeploy."
+      "The Vercel API route rejected this request (HTTP 405). Confirm the latest deployment includes the API functions."
     );
   }
 
@@ -35,7 +16,7 @@ export async function readApiResponse(response) {
 
   if (!contentType.includes("application/json")) {
     throw new Error(
-      `The API returned a non-JSON response (HTTP ${response.status}). Check the Render API service and the VITE_API_HOST setting.`
+      `The API returned a non-JSON response (HTTP ${response.status}). Check the Vercel function deployment and logs.`
     );
   }
 

@@ -1,11 +1,10 @@
 {
-  "name": "server",
+  "name": "sqlite-to-neon-migration",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Import the existing SQLite user data into Neon Postgres",
+  "main": "migrate-to-neon.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "migrate": "node migrate-to-neon.js"
   },
   "engines": {
     "node": ">=22"
@@ -14,8 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "better-sqlite3": "^13.0.3",
-    "cors": "^2.8.6",
-    "express": "^5.3.0"
+    "@neondatabase/serverless": "^1.0.2",
+    "better-sqlite3": "^13.0.3"
   }
 }

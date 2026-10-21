@@ -1,0 +1,55 @@
+import { getDatabase, isUniqueViolation } from "../src/server/database.js";
+import { hashPassword } from "../src/server/passwords.js";
+
+export default async function handler(request, response) {
+  if (request.method !== "POST") {
+    response.setHeader("Allow", "POST");
+    return response.status(405).json({
+      success: false,
+      message: "Method not allowed",
+    });
+  }
+
+  const { name, email, password } = request.body ?? {};
+  if (!name || !email || !password) {
+    return response.status(400).json({
+      success: false,
+      message: "Name, email, and password are required",
+    });
+  }
+
+  if (typeof password !== "string" || password.length < 8) {
+    return response.status(400).json({
+      success: false,
+      message: "Password must be at least 8 characters",
+    });
+  }
+
+  try {
+    const sql = await getDatabase();
+    const [user] = await sql`
+      INSERT INTO users (name, email, password_hash)
+      VALUES (${name}, ${email}, ${hashPassword(password)})
+      RETURNING id
+    `;
+
+    return response.status(201).json({
+      success: true,
+      message: "User registered successfully",
+      id: user.id,
+    });
+  } catch (error) {
+    if (isUniqueViolation(error)) {
+      return response.status(409).json({
+        success: false,
+        message: "An account with this email already exists",
+      });
+    }
+
+    console.error("Registration failed:", error);
+    return response.status(500).json({
+      success: false,
+      message: "Unable to register user",
+    });
+  }
+}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getApiBaseUrl, readApiResponse } from "../utils/api";
+import { readApiResponse } from "../utils/api";
 
 export default function Registration() {
 const [name, setName] = useState("");
@@ -12,7 +12,7 @@ event.preventDefault();
 setMessage("Sending...");
 
 try {
-const response = await fetch(`${getApiBaseUrl()}/api/register`, {
+const response = await fetch("/api/register", {
 method: "POST",
 headers: {
 "Content-Type": "application/json"
