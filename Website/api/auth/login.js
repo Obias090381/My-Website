@@ -5,6 +5,7 @@ import {
   SESSION_DURATION_MS,
   setSessionCookie,
 } from "../../src/server/sessions.js";
+import process from "node:process";
 
 export default async function handler(request, response) {
   if (request.method !== "POST") {
@@ -25,6 +26,13 @@ export default async function handler(request, response) {
     return response.status(400).json({
       success: false,
       message: "Enter your email and password",
+    });
+  }
+
+  if (!process.env.DATABASE_URL) {
+    return response.status(503).json({
+      success: false,
+      message: "Sign-in is unavailable because the database is not configured.",
     });
   }
 

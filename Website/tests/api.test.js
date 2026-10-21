@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import process from "node:process";
 import test from "node:test";
 import register from "../api/register.js";
 import login from "../api/auth/login.js";
@@ -47,6 +48,28 @@ test("registration validates required fields before accessing the database", asy
 
   assert.equal(response.statusCode, 400);
   assert.match(response.body.message, /required/i);
+});
+
+test("registration explains when Neon is not configured", async () => {
+  const previousDatabaseUrl = process.env.DATABASE_URL;
+  delete process.env.DATABASE_URL;
+
+  try {
+    const response = createResponse();
+    await register({
+      method: "POST",
+      body: { name: "Test Person", email: "test@example.com", password: "password123" },
+    }, response);
+
+    assert.equal(response.statusCode, 503);
+    assert.match(response.body.message, /database is not configured/i);
+  } finally {
+    if (previousDatabaseUrl === undefined) {
+      delete process.env.DATABASE_URL;
+    } else {
+      process.env.DATABASE_URL = previousDatabaseUrl;
+    }
+  }
 });
 
 test("sign-in validates credentials before accessing the database", async () => {

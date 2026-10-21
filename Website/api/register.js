@@ -1,5 +1,6 @@
 import { getDatabase, isUniqueViolation } from "../src/server/database.js";
 import { hashPassword } from "../src/server/passwords.js";
+import process from "node:process";
 
 export default async function handler(request, response) {
   if (request.method !== "POST") {
@@ -29,6 +30,13 @@ export default async function handler(request, response) {
     return response.status(400).json({
       success: false,
       message: "Password must be at least 8 characters",
+    });
+  }
+
+  if (!process.env.DATABASE_URL) {
+    return response.status(503).json({
+      success: false,
+      message: "Account registration is unavailable because the database is not configured.",
     });
   }
 
