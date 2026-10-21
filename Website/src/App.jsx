@@ -15,7 +15,6 @@ import Contact from "./Pages/Contact";
 import Home from "./Pages/Home";
 import PastoralVisitation from "./Pages/Pastoral Visitation";
 import Ministries from "./Pages/Ministries";
-import ResetPassword from "./Pages/ResetPassword";
 import Account from "./Pages/Account";
 
 function RequireSignIn() {
@@ -92,12 +91,10 @@ function App() {
           <Link to="/Ministries">Ministries</Link>
           <Link to="/Contact">Contact Us</Link>
           <Link to="/account">Sign in</Link>
-          <Link to="/reset-password">Reset Password</Link>
         </nav>
         <hr />
 
         <Routes>
-          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/account" element={<Account />} />
           <Route element={<RequireSignIn />}>
             <Route path="/" element={<Home />} />

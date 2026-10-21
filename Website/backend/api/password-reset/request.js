@@ -46,7 +46,7 @@ export default async function handler(request, response) {
       pendingTokenHash = tokenHash;
       const expiresAt = Date.now() + 60 * 60 * 1000;
       const resetUrl = new URL(
-        `/reset-password?token=${encodeURIComponent(token)}`,
+        `/account?token=${encodeURIComponent(token)}`,
         getAppUrl()
       ).toString();
 

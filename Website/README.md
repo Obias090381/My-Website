@@ -16,8 +16,7 @@ local function disk storage.
 4. Set `RESEND_API_KEY` and `RESEND_FROM_EMAIL` in the Vercel project settings
    to enable password-reset email. Never use a `VITE_` prefix for secrets.
 5. Deploy the project. Vercel serves the `/api/*` functions alongside the
-   frontend; the Vercel rewrite serves client-side routes such as
-   `/reset-password`.
+   frontend; the Vercel rewrite serves client-side routes such as `/account`.
 
 If the Vercel build logs show `npm warn Unknown env config "cache-dir"`, remove
 `cache-dir` or `NPM_CONFIG_CACHE_DIR` from the project's Environment Variables

@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { readApiResponse } from "../utils/api";
 import "./Account.css";
 
 function Account() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [mode, setMode] = useState("signin");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const resetToken = searchParams.get("token");
+  const [mode, setMode] = useState(() => resetToken ? "confirm" : "signin");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
@@ -107,6 +110,38 @@ function Account() {
     }
   };
 
+  const handlePasswordResetConfirm = async (event) => {
+    event.preventDefault();
+    setMessage("");
+    setIsError(false);
+
+    if (password !== confirmPassword) {
+      setIsError(true);
+      setMessage("The passwords do not match.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("/api/password-reset/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: resetToken, password }),
+      });
+      const result = await readApiResponse(response);
+      setMessage(result.message);
+      setPassword("");
+      setConfirmPassword("");
+      setSearchParams({});
+      setMode("signin");
+    } catch (error) {
+      setIsError(true);
+      setMessage(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const handleSignOut = async () => {
     setIsSubmitting(true);
     setMessage("");
@@ -130,6 +165,9 @@ function Account() {
     setMode(nextMode);
     setMessage("");
     setIsError(false);
+    setSearchParams({});
+    setPassword("");
+    setConfirmPassword("");
   };
 
   return (
@@ -138,19 +176,63 @@ function Account() {
         <div className="account-card__intro">
           <span className="account-card__eyebrow">A Priest’s Journey</span>
           <h2 id="account-title">
-            {user ? "Your account" : mode === "reset" ? "Reset password" : "Welcome"}
+            {mode === "confirm"
+              ? "Choose a new password"
+              : user
+                ? "Your account"
+                : mode === "reset"
+                  ? "Reset password"
+                  : "Welcome"}
           </h2>
           <p>
-            {user
-              ? "You are signed in to your account."
-              : mode === "reset"
-                ? "Enter your account email and we’ll send you a password reset link."
-              : "Sign in or create an account to continue."}
+            {mode === "confirm"
+              ? "Your reset link is ready. Choose a new password below."
+              : user
+                ? "You are signed in to your account."
+                : mode === "reset"
+                  ? "Enter your account email and we’ll send you a password reset link."
+                  : "Sign in or create an account to continue."}
           </p>
         </div>
 
         {isLoading ? (
           <p className="account-message" role="status">Checking your sign-in…</p>
+        ) : mode === "confirm" ? (
+          <form className="account-form" onSubmit={handlePasswordResetConfirm}>
+            <label>
+              New password
+              <input
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                autoComplete="new-password"
+                minLength={8}
+                required
+              />
+              <span className="account-form__hint">Use at least 8 characters.</span>
+            </label>
+            <label>
+              Confirm new password
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
+                autoComplete="new-password"
+                minLength={8}
+                required
+              />
+            </label>
+            <button className="account-button" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Saving…" : "Set new password"}
+            </button>
+            <button
+              className="account-text-button"
+              type="button"
+              onClick={() => selectMode("signin")}
+            >
+              Back to sign in
+            </button>
+          </form>
         ) : user ? (
           <div className="account-signed-in">
             <p className="account-signed-in__name">{user.name}</p>
