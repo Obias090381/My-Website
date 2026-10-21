@@ -31,6 +31,9 @@ the Vercel deployment's Functions list and runtime logs.
 The `/account` page supports account registration, sign-in, and sign-out.
 Sign-in sessions are stored in Neon and use an HTTP-only cookie that expires
 after 30 days. Password resets revoke the account's existing sessions.
+Backend handlers and shared database/authentication code are organized in
+`backend/`. The small files under `api/` re-export those handlers so Vercel
+continues to detect them as serverless functions.
 
 ## Import existing SQLite accounts
 

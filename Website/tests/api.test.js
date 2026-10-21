@@ -8,12 +8,12 @@ import requestPasswordReset from "../api/password-reset/request.js";
 import confirmPasswordReset from "../api/password-reset/confirm.js";
 import listUsers from "../api/users.js";
 import { readApiResponse } from "../src/utils/api.js";
-import { hashPassword, verifyPassword } from "../src/server/passwords.js";
+import { hashPassword, verifyPassword } from "../backend/server/passwords.js";
 import {
   createSessionToken,
   getSessionToken,
   hashSessionToken,
-} from "../src/server/sessions.js";
+} from "../backend/server/sessions.js";
 
 function createResponse() {
   return {
