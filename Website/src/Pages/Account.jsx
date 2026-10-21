@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { readApiResponse } from "../utils/api";
 import "./Account.css";
 
@@ -85,6 +85,28 @@ function Account() {
     }
   };
 
+  const handlePasswordResetRequest = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setMessage("");
+    setIsError(false);
+
+    try {
+      const response = await fetch("/api/password-reset/request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const result = await readApiResponse(response);
+      setMessage(result.message);
+    } catch (error) {
+      setIsError(true);
+      setMessage(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const handleSignOut = async () => {
     setIsSubmitting(true);
     setMessage("");
@@ -115,10 +137,14 @@ function Account() {
       <section className="account-card" aria-labelledby="account-title">
         <div className="account-card__intro">
           <span className="account-card__eyebrow">A Priest’s Journey</span>
-          <h2 id="account-title">{user ? "Your account" : "Welcome"}</h2>
+          <h2 id="account-title">
+            {user ? "Your account" : mode === "reset" ? "Reset password" : "Welcome"}
+          </h2>
           <p>
             {user
               ? "You are signed in to your account."
+              : mode === "reset"
+                ? "Enter your account email and we’ll send you a password reset link."
               : "Sign in or create an account to continue."}
           </p>
         </div>
@@ -138,6 +164,32 @@ function Account() {
               {isSubmitting ? "Signing out…" : "Sign out"}
             </button>
           </div>
+        ) : mode === "reset" ? (
+          <form
+            className="account-form"
+            onSubmit={handlePasswordResetRequest}
+          >
+            <label>
+              Email address
+              <input
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                autoComplete="email"
+                required
+              />
+            </label>
+            <button className="account-button" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Sending…" : "Send reset link"}
+            </button>
+            <button
+              className="account-text-button"
+              type="button"
+              onClick={() => selectMode("signin")}
+            >
+              Back to sign in
+            </button>
+          </form>
         ) : (
           <>
             <div className="account-tabs" role="tablist" aria-label="Account options">
@@ -209,7 +261,13 @@ function Account() {
 
             {mode === "signin" && (
               <p className="account-reset-link">
-                <Link to="/reset-password">Forgot your password?</Link>
+                <button
+                  className="account-text-button"
+                  type="button"
+                  onClick={() => selectMode("reset")}
+                >
+                  Forgot your password?
+                </button>
               </p>
             )}
           </>

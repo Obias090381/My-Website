@@ -98,7 +98,7 @@
 .account-form input:focus-visible,
 .account-tabs button:focus-visible,
 .account-button:focus-visible,
-.account-reset-link a:focus-visible {
+.account-text-button:focus-visible {
   outline: 3px solid #bb8d2e;
   outline-offset: 2px;
 }
@@ -136,9 +136,20 @@
   text-align: center;
 }
 
-.account-reset-link a {
+.account-text-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: #705115;
+  cursor: pointer;
+  font: inherit;
   font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.account-text-button:hover {
+  color: #49350f;
 }
 
 .account-signed-in {
