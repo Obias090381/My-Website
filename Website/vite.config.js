@@ -1,4 +1,5 @@
 import { Buffer } from 'node:buffer'
+import { resolve } from 'node:path'
 import process from 'node:process'
 import react from '@vitejs/plugin-react'
 import { defineConfig, loadEnv } from 'vite'
@@ -100,9 +101,10 @@ function localApiPlugin() {
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
+  const backendEnv = loadEnv(mode, resolve(process.cwd(), 'backend'), '')
   for (const key of ['DATABASE_URL', 'RESEND_API_KEY', 'RESEND_FROM_EMAIL', 'APP_URL']) {
-    if (!process.env[key] && env[key]) {
-      process.env[key] = env[key]
+    if (!process.env[key] && (env[key] || backendEnv[key])) {
+      process.env[key] = env[key] || backendEnv[key]
     }
   }
 
