@@ -18,6 +18,10 @@ Vercel while the API and its persistent SQLite database remain on Render.
 The Vercel rewrite configuration serves the React app for client-side routes
 such as `/reset-password`.
 
+If an API request returns HTTP 405, verify that `VITE_API_HOST` is set to the
+actual public URL of the Render API service (not the Vercel site URL), then
+redeploy the frontend. Vite embeds this variable when building the site.
+
 ## Connect the Render API
 
 Keep the API service and its persistent disk on Render. In the Render API

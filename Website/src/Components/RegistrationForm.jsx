@@ -1,10 +1,5 @@
 import { useState } from "react";
-import { readApiResponse } from "../utils/api";
-
-const configuredApiUrl = import.meta.env.VITE_API_HOST || "";
-const API_URL = configuredApiUrl && !/^https?:\/\//i.test(configuredApiUrl)
-  ? `https://${configuredApiUrl}`
-  : configuredApiUrl;
+import { getApiBaseUrl, readApiResponse } from "../utils/api";
 
 export default function Registration() {
 const [name, setName] = useState("");
@@ -17,7 +12,7 @@ event.preventDefault();
 setMessage("Sending...");
 
 try {
-const response = await fetch(`${API_URL}/api/register`, {
+const response = await fetch(`${getApiBaseUrl()}/api/register`, {
 method: "POST",
 headers: {
 "Content-Type": "application/json"
