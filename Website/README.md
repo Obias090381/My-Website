@@ -1,16 +1,34 @@
-# React + Vite
+# A Priest's Journey website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the React frontend, built with Vite. The frontend can be deployed to
+Vercel while the API and its persistent SQLite database remain on Render.
 
-Currently, two official plugins are available:
+## Deploy the frontend to Vercel
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Import this repository into Vercel.
+2. Set the project **Root Directory** to `Website`.
+3. Use the Vite framework preset, build command `npm run build`, and output
+   directory `dist`.
+4. Add the `VITE_API_HOST` environment variable in the Vercel project settings.
+   Set it to the Render API service hostname (for example,
+   `my-website-api.onrender.com`) or its full `https://` URL. Add it for each
+   Vercel environment you deploy (Production, Preview, or Development).
+5. Deploy or redeploy the project after setting the environment variable.
 
-## React Compiler
+The Vercel rewrite configuration serves the React app for client-side routes
+such as `/reset-password`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Connect the Render API
 
-## Expanding the ESLint configuration
+Keep the API service and its persistent disk on Render. In the Render API
+service's environment settings, set `APP_URL` to the deployed Vercel site's
+URL (for example, `https://your-project.vercel.app`). This ensures password
+reset links return to the Vercel site. Keep the existing `DB_PATH` disk
+configuration and configure `RESEND_API_KEY` and `RESEND_FROM_EMAIL` on Render
+for password-reset email.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Local development
+
+Run `npm run dev` from this directory. The Vite development server proxies
+`/api` requests to `http://127.0.0.1:5000`; run the API locally to use
+registration and password-reset features.
