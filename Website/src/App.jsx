@@ -5,8 +5,8 @@ import Contact from "./Pages/Contact";
 import Home from "./Pages/Home";
 import PastoralVisitation from "./Pages/Pastoral Visitation";
 import Ministries from "./Pages/Ministries";
-import RegistrationForm from "./Components/RegistrationForm";
 import ResetPassword from "./Pages/ResetPassword";
+import Account from "./Pages/Account";
 
 function App() {
   return (
@@ -39,6 +39,7 @@ function App() {
           <Link to="/Pastoral Visitation">Pastoral Visitation</Link>
           <Link to="/Ministries">Ministries</Link>
           <Link to="/Contact">Contact Us</Link>
+          <Link to="/account">Sign in</Link>
           <Link to="/reset-password">Reset Password</Link>
         </nav>
         <hr />
@@ -50,8 +51,8 @@ function App() {
           <Route path="/Ministries" element={<Ministries />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
-        <RegistrationForm />
       </div>
     </BrowserRouter>
   );

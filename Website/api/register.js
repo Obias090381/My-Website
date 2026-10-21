@@ -11,7 +11,14 @@ export default async function handler(request, response) {
   }
 
   const { name, email, password } = request.body ?? {};
-  if (!name || !email || !password) {
+  if (
+    typeof name !== "string" ||
+    !name.trim() ||
+    typeof email !== "string" ||
+    !email.trim() ||
+    typeof password !== "string" ||
+    !password
+  ) {
     return response.status(400).json({
       success: false,
       message: "Name, email, and password are required",
@@ -27,9 +34,10 @@ export default async function handler(request, response) {
 
   try {
     const sql = await getDatabase();
+    const normalizedEmail = email.trim().toLowerCase();
     const [user] = await sql`
       INSERT INTO users (name, email, password_hash)
-      VALUES (${name}, ${email}, ${hashPassword(password)})
+      VALUES (${name.trim()}, ${normalizedEmail}, ${hashPassword(password)})
       RETURNING id
     `;
 

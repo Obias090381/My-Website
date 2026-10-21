@@ -1,9 +1,17 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import register from "../api/register.js";
+import login from "../api/auth/login.js";
+import session from "../api/auth/session.js";
 import requestPasswordReset from "../api/password-reset/request.js";
 import confirmPasswordReset from "../api/password-reset/confirm.js";
 import { readApiResponse } from "../src/utils/api.js";
+import { hashPassword, verifyPassword } from "../src/server/passwords.js";
+import {
+  createSessionToken,
+  getSessionToken,
+  hashSessionToken,
+} from "../src/server/sessions.js";
 
 function createResponse() {
   return {
@@ -38,6 +46,51 @@ test("registration validates required fields before accessing the database", asy
 
   assert.equal(response.statusCode, 400);
   assert.match(response.body.message, /required/i);
+});
+
+test("sign-in validates credentials before accessing the database", async () => {
+  const response = createResponse();
+  await login({ method: "POST", body: { email: "person@example.com" } }, response);
+
+  assert.equal(response.statusCode, 400);
+  assert.match(response.body.message, /email and password/i);
+});
+
+test("session lookup reports unauthenticated when no session cookie is present", async () => {
+  const response = createResponse();
+  await session({ method: "GET", headers: {} }, response);
+
+  assert.equal(response.statusCode, 200);
+  assert.deepEqual(response.body, { authenticated: false });
+});
+
+test("session endpoint rejects unsupported methods", async () => {
+  const response = createResponse();
+  await session({ method: "POST" }, response);
+
+  assert.equal(response.statusCode, 405);
+  assert.equal(response.headers.Allow, "GET, DELETE");
+});
+
+test("password verification accepts only the matching password", () => {
+  const passwordHash = hashPassword("correct horse battery staple");
+
+  assert.equal(verifyPassword("correct horse battery staple", passwordHash), true);
+  assert.equal(verifyPassword("incorrect password", passwordHash), false);
+  assert.equal(verifyPassword("anything", null), false);
+});
+
+test("session tokens are hashed and extracted from their cookie", () => {
+  const { token, tokenHash } = createSessionToken();
+
+  assert.notEqual(token, tokenHash);
+  assert.equal(hashSessionToken(token), tokenHash);
+  assert.equal(
+    getSessionToken({
+      headers: { cookie: `other=value; website_session=${token}; theme=light` },
+    }),
+    token
+  );
 });
 
 test("password reset request rejects an empty email before accessing the database", async () => {

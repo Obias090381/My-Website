@@ -28,6 +28,10 @@ The API creates its database tables on the first request. The health endpoint
 is `/api/db-test`. If a deployment returns HTTP 405 for an API request, check
 the Vercel deployment's Functions list and runtime logs.
 
+The `/account` page supports account registration, sign-in, and sign-out.
+Sign-in sessions are stored in Neon and use an HTTP-only cookie that expires
+after 30 days. Password resets revoke the account's existing sessions.
+
 ## Import existing SQLite accounts
 
 The SQLite database is preserved at `my-app/server/database.sqlite` as a

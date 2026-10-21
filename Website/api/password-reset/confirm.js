@@ -34,11 +34,17 @@ export default async function handler(request, response) {
         WHERE token_hash = ${hashResetToken(token)}
           AND expires_at > ${Date.now()}
         RETURNING user_id
+      ), updated AS (
+        UPDATE users
+        SET password_hash = ${hashPassword(password)}
+        WHERE id = (SELECT user_id FROM consumed)
+        RETURNING id
+      ), revoked_sessions AS (
+        DELETE FROM user_sessions
+        WHERE user_id = (SELECT id FROM updated)
+        RETURNING user_id
       )
-      UPDATE users
-      SET password_hash = ${hashPassword(password)}
-      WHERE id = (SELECT user_id FROM consumed)
-      RETURNING id
+      SELECT id FROM updated
     `;
 
     if (!updatedUser) {
