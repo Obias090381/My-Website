@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { readApiResponse } from "../utils/api";
 
 const configuredApiUrl = import.meta.env.VITE_API_HOST || "";
 const API_URL = configuredApiUrl && !/^https?:\/\//i.test(configuredApiUrl)
@@ -28,11 +29,7 @@ password: password
 })
 });
 
-const result = await response.json();
-
-if (!response.ok) {
-throw new Error(result.message || "Registration failed");
-}
+const result = await readApiResponse(response);
 
 setMessage("Saved successfully!");
 setName("");

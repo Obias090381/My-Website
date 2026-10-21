@@ -1,25 +1,11 @@
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { readApiResponse } from "../utils/api";
 
 const configuredApiUrl = import.meta.env.VITE_API_HOST || "";
 const API_URL = configuredApiUrl && !/^https?:\/\//i.test(configuredApiUrl)
   ? `https://${configuredApiUrl}`
   : configuredApiUrl;
-
-async function readResponse(response) {
-  const contentType = response.headers.get("content-type") || "";
-  if (!contentType.includes("application/json")) {
-    throw new Error(
-      "The reset API returned a webpage instead of JSON. Check the Render API service and its VITE_API_HOST connection."
-    );
-  }
-
-  const result = await response.json();
-  if (!response.ok) {
-    throw new Error(result.message || "The request could not be completed");
-  }
-  return result;
-}
 
 function ResetPassword() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -44,7 +30,7 @@ function ResetPassword() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-      const result = await readResponse(response);
+      const result = await readApiResponse(response);
       setMessage(result.message);
     } catch (error) {
       setIsError(true);
@@ -72,7 +58,7 @@ function ResetPassword() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, password }),
       });
-      const result = await readResponse(response);
+      const result = await readApiResponse(response);
       setMessage(result.message);
       setIsResetComplete(true);
       setPassword("");
