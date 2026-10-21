@@ -43,13 +43,15 @@ previous live service, set `SQLITE_PATH` to that database file.
 
 ## Local development
 
-Use the Vercel CLI from this directory so local requests reach both Vite and
-the `/api/*` functions:
+Run the Vite development server from this directory. It serves the frontend
+and the project's `/api/*` handlers locally:
 
 ```powershell
-npx vercel dev
+npm run dev
 ```
 
 Configure `DATABASE_URL`, `RESEND_API_KEY`, and `RESEND_FROM_EMAIL` in Vercel or
-in a local `.env.local` file. `APP_URL` can be set to `http://localhost:3000`
-for local password-reset links; otherwise, Vercel's deployment URL is used.
+in a local `.env.local` file. The local API requires `DATABASE_URL` to access
+Neon; email requests also require the Resend settings. `APP_URL` can be set to
+the local site URL for local password-reset links; otherwise, Vercel's
+deployment URL is used.
