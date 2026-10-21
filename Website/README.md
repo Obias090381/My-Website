@@ -19,6 +19,11 @@ local function disk storage.
    frontend; the Vercel rewrite serves client-side routes such as
    `/reset-password`.
 
+If the Vercel build logs show `npm warn Unknown env config "cache-dir"`, remove
+`cache-dir` or `NPM_CONFIG_CACHE_DIR` from the project's Environment Variables
+and redeploy. If you need to override npm's cache location, use the supported
+`NPM_CONFIG_CACHE` setting instead.
+
 The API creates its database tables on the first request. The health endpoint
 is `/api/db-test`. If a deployment returns HTTP 405 for an API request, check
 the Vercel deployment's Functions list and runtime logs.
