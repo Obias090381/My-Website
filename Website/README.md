@@ -55,3 +55,6 @@ in a local `.env.local` file. The local API requires `DATABASE_URL` to access
 Neon; email requests also require the Resend settings. `APP_URL` can be set to
 the local site URL for local password-reset links; otherwise, Vercel's
 deployment URL is used.
+
+Copy `.env.example` to `.env.local` and fill in the values for local development.
+Keep `.env.local` private; never commit database URLs or API keys.

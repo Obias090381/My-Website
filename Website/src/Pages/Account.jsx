@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { readApiResponse } from "../utils/api";
 import "./Account.css";
 
 function Account() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [mode, setMode] = useState("signin");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -66,9 +68,14 @@ function Account() {
         setPassword("");
         setMessage("Your account has been created. Sign in with your email and password.");
       } else {
+        const destination =
+          location.state?.from?.pathname?.startsWith("/") &&
+          !location.state.from.pathname.startsWith("//")
+            ? `${location.state.from.pathname}${location.state.from.search ?? ""}`
+            : "/";
         setUser(result.user);
         setPassword("");
-        setMessage("");
+        navigate(destination, { replace: true });
       }
     } catch (error) {
       setIsError(true);

@@ -1,4 +1,14 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  Navigate,
+  Outlet,
+  useLocation,
+} from "react-router-dom";
+import { readApiResponse } from "./utils/api";
 
 import FOEucharist from "./Pages/FOEucharist";
 import Contact from "./Pages/Contact";
@@ -7,6 +17,48 @@ import PastoralVisitation from "./Pages/Pastoral Visitation";
 import Ministries from "./Pages/Ministries";
 import ResetPassword from "./Pages/ResetPassword";
 import Account from "./Pages/Account";
+
+function RequireSignIn() {
+  const location = useLocation();
+  const [status, setStatus] = useState("checking");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function checkSession() {
+      try {
+        const response = await fetch("/api/auth/session", {
+          signal: controller.signal,
+        });
+        const result = await readApiResponse(response);
+        setStatus(result.authenticated ? "authenticated" : "unauthenticated");
+      } catch (requestError) {
+        if (requestError.name !== "AbortError") {
+          setError(requestError.message);
+          setStatus("error");
+        }
+      }
+    }
+
+    checkSession();
+    return () => controller.abort();
+  }, []);
+
+  if (status === "checking") {
+    return <main role="status">Checking your sign-in…</main>;
+  }
+
+  if (status === "error") {
+    return <main role="alert">Unable to verify your sign-in: {error}</main>;
+  }
+
+  if (status === "unauthenticated") {
+    return <Navigate to="/account" replace state={{ from: location }} />;
+  }
+
+  return <Outlet />;
+}
 
 function App() {
   return (
@@ -45,13 +97,15 @@ function App() {
         <hr />
 
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/FOEucharist" element={<FOEucharist />} />
-          <Route path="/Pastoral Visitation" element={<PastoralVisitation />} />
-          <Route path="/Ministries" element={<Ministries />} />
-          <Route path="/Contact" element={<Contact />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/account" element={<Account />} />
+          <Route element={<RequireSignIn />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/FOEucharist" element={<FOEucharist />} />
+            <Route path="/Pastoral Visitation" element={<PastoralVisitation />} />
+            <Route path="/Ministries" element={<Ministries />} />
+            <Route path="/Contact" element={<Contact />} />
+          </Route>
         </Routes>
       </div>
     </BrowserRouter>

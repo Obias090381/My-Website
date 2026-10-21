@@ -5,6 +5,7 @@ import login from "../api/auth/login.js";
 import session from "../api/auth/session.js";
 import requestPasswordReset from "../api/password-reset/request.js";
 import confirmPasswordReset from "../api/password-reset/confirm.js";
+import listUsers from "../api/users.js";
 import { readApiResponse } from "../src/utils/api.js";
 import { hashPassword, verifyPassword } from "../src/server/passwords.js";
 import {
@@ -70,6 +71,14 @@ test("session endpoint rejects unsupported methods", async () => {
 
   assert.equal(response.statusCode, 405);
   assert.equal(response.headers.Allow, "GET, DELETE");
+});
+
+test("users endpoint rejects requests without a session cookie", async () => {
+  const response = createResponse();
+  await listUsers({ method: "GET", headers: {} }, response);
+
+  assert.equal(response.statusCode, 401);
+  assert.match(response.body.message, /sign in/i);
 });
 
 test("password verification accepts only the matching password", () => {
