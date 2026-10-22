@@ -10,9 +10,12 @@ local function disk storage.
    `Website`.
 2. Use the Vite framework preset, build command `npm run build`, and output
    directory `dist`.
-3. Connect a Neon Postgres database through the Vercel Marketplace. Confirm the
-   project has the `DATABASE_URL` environment variable in Production and any
-   Preview environments that need database access.
+3. Create or select your database in the Neon Console and copy its connection
+   string (use the pooled connection string for the serverless app). In Vercel
+   Project Settings, add that Neon connection string as `DATABASE_URL` in
+   Production and any Preview environments that need database access. This
+   uses a Neon database managed directly in Neon; it does not require installing
+   the Vercel Marketplace integration.
 4. Set `RESEND_API_KEY` and `RESEND_FROM_EMAIL` in the Vercel project settings
    to enable password-reset email. Never use a `VITE_` prefix for secrets.
 5. Deploy the project. Vercel serves the `/api/*` functions alongside the
@@ -52,11 +55,14 @@ and the project's `/api/*` handlers locally:
 npm run dev
 ```
 
-Configure `DATABASE_URL`, `RESEND_API_KEY`, and `RESEND_FROM_EMAIL` in Vercel or
-in a local `.env.local` file. The local API requires `DATABASE_URL` to access
-Neon; email requests also require the Resend settings. `APP_URL` can be set to
-the local site URL for local password-reset links; otherwise, Vercel's
-deployment URL is used.
+For local development, configure `DATABASE_URL` with the connection string
+copied from Neon in `backend/.env` or the project-root `.env.local`. For
+deployment, set the same Neon connection string as `DATABASE_URL` in Vercel's
+Environment Variables so the hosted API can connect to Neon. Vercel stores and
+provides the setting to the running function; it does not supply or manage the
+database. Email requests also require `RESEND_API_KEY` and `RESEND_FROM_EMAIL`.
+`APP_URL` can be set to the local site URL for local password-reset links;
+otherwise, Vercel's deployment URL is used.
 
 Copy `.env.example` to `.env.local` and fill in the values for local development.
 Keep `.env.local` private; never commit database URLs or API keys.
