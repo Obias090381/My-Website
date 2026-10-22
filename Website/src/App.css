@@ -9,18 +9,18 @@
   place-items: center;
   padding: 32px 18px;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(235, 215, 160, 0.28), transparent 42%),
-    #f6f4ee;
+    radial-gradient(ellipse at 14% 12%, rgba(255, 255, 255, 0.68), transparent 32%),
+    linear-gradient(135deg, #efd473 0%, #e7c45c 48%, #d8ad42 100%);
 }
 
 .entry-card {
   box-sizing: border-box;
   width: min(100%, 500px);
   padding: clamp(26px, 6vw, 46px);
-  border: 1px solid #e7dfcd;
-  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 20px;
   background: #fffefa;
-  box-shadow: 0 18px 55px rgba(47, 42, 31, 0.1);
+  box-shadow: 0 22px 60px rgba(71, 53, 17, 0.2);
 }
 
 .entry-brand {
@@ -28,7 +28,7 @@
   justify-items: center;
   gap: 7px;
   margin-bottom: 30px;
-  color: #79591f;
+  color: #604514;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 0.93rem;
   font-style: italic;
@@ -39,15 +39,15 @@
 }
 
 .entry-brand__mark {
-  color: #b58c3b;
+  color: #a87618;
   font-size: 1.5rem;
   line-height: 1;
 }
 
 .entry-brand__rule {
   width: 48px;
-  height: 1px;
-  background: #d8c18d;
+  height: 2px;
+  background: #d5b353;
 }
 
 .entry-intro {
@@ -56,7 +56,7 @@
 }
 
 .entry-eyebrow {
-  color: #84631e;
+  color: #785719;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -75,38 +75,6 @@
   margin: 0;
   color: #5f625f;
   line-height: 1.5;
-}
-
-.entry-tabs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  margin-bottom: 22px;
-  padding: 5px;
-  border-radius: 10px;
-  background: #f2eee4;
-}
-
-.entry-tabs button,
-.entry-secondary-action button {
-  border: 0;
-  color: #705115;
-  cursor: pointer;
-  font: inherit;
-  font-weight: 600;
-}
-
-.entry-tabs button {
-  min-height: 42px;
-  border-radius: 7px;
-  background: transparent;
-  color: #50524f;
-}
-
-.entry-tabs button[aria-selected="true"] {
-  background: #fff;
-  color: #302719;
-  box-shadow: 0 1px 4px rgba(47, 42, 31, 0.12);
 }
 
 .entry-form {
@@ -158,31 +126,17 @@
 }
 
 .entry-form input:focus-visible,
-.entry-tabs button:focus-visible,
-.entry-submit:focus-visible,
-.entry-secondary-action button:focus-visible {
+.entry-submit:focus-visible {
   outline: 3px solid #bb8d2e;
   outline-offset: 2px;
-}
-
-.entry-secondary-action {
-  margin: 18px 0 0;
-  text-align: center;
-}
-
-.entry-secondary-action button {
-  padding: 0;
-  background: transparent;
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 .entry-status {
   margin: 20px 0 0;
   padding: 11px 12px;
   border-radius: 8px;
-  background: #f4f0e5;
-  color: #5e4b24;
+  background: #f8f1db;
+  color: #604514;
   font-size: 0.85rem;
   line-height: 1.5;
   text-align: center;
