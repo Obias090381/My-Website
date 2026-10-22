@@ -87,13 +87,9 @@ function App() {
                 name="fullName"
                 type="text"
                 autoComplete="name"
-                placeholder="Last name, Given name, MI"
+                placeholder="e.g., Doe, Jane, A"
                 required
               />
-              <span className="entry-hint">
-                Enter in this order: Last name, Given name, Middle initial
-                (e.g., Doe, Jane, A).
-              </span>
             </label>
           )}
 
