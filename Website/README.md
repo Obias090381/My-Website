@@ -37,3 +37,9 @@ The API initializes the `users` and `user_sessions` tables when it first
 connects. To check the connection, open `/api/db-test`. Registration and
 sign-in will report an error if `DATABASE_URL` is not configured or the
 database cannot be reached.
+
+Password reset sends one-time links through Resend. Configure `RESEND_API_KEY`,
+`RESEND_FROM_EMAIL` (a sender address verified in Resend), and `APP_URL` in
+Vercel Production/Preview settings and in `backend/.env` for local testing.
+Reset links expire after 30 minutes, can be used once, and existing sessions
+are revoked when a password is reset.

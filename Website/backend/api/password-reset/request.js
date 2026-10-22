@@ -45,6 +45,28 @@ export default async function handler(request, response) {
     });
   }
 
+  let appOrigin;
+  try {
+    const parsedAppUrl = new URL(appUrl);
+    const isLocalHttp =
+      parsedAppUrl.protocol === "http:" &&
+      ["localhost", "127.0.0.1", "[::1]"].includes(parsedAppUrl.hostname);
+    if (
+      (parsedAppUrl.protocol !== "https:" && !isLocalHttp) ||
+      parsedAppUrl.username ||
+      parsedAppUrl.password
+    ) {
+      throw new Error("APP_URL must use HTTPS, except for localhost.");
+    }
+    appOrigin = parsedAppUrl.origin;
+  } catch {
+    return response.status(503).json({
+      success: false,
+      message:
+        "Password recovery is not configured. APP_URL must be a valid HTTPS URL (HTTP is allowed only for localhost).",
+    });
+  }
+
   try {
     const sql = await getDatabase();
     const normalizedEmail = email.trim().toLowerCase();
@@ -71,7 +93,7 @@ export default async function handler(request, response) {
       DO UPDATE SET token_hash = ${tokenHash}, expires_at = ${expiresAt}
     `;
 
-    const resetUrl = new URL("/", appUrl);
+    const resetUrl = new URL("/", appOrigin);
     resetUrl.searchParams.set("token", token);
     const safeName = user.name.replace(/[&<>"]/g, (character) => ({
       "&": "&amp;",

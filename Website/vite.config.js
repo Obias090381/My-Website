@@ -118,12 +118,7 @@ function localApiPlugin() {
 
 export default defineConfig(({ mode }) => {
   const backendEnv = loadEnv(mode, resolve(process.cwd(), "backend"), "");
-  for (const key of [
-    "DATABASE_URL",
-    "RESEND_API_KEY",
-    "RESEND_FROM_EMAIL",
-    "APP_URL",
-  ]) {
+  for (const key of ["DATABASE_URL", "RESEND_API_KEY", "RESEND_FROM_EMAIL", "APP_URL"]) {
     if (!process.env[key] && backendEnv[key]) {
       process.env[key] = backendEnv[key];
     }
