@@ -197,7 +197,7 @@ function AccountEntry({ onAuthenticated }) {
           </button>
         </form>
         <p className="entry-status" role="status" aria-live="polite">
-          {message || "Account services require a configured Neon database."}
+          {message || "Sign-up and sign-in are handled by the account backend."}
         </p>
       </section>
     </main>
