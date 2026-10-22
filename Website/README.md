@@ -1,13 +1,9 @@
 # A Priest's Journey website
 
-The Vite/React website is a static frontend. Sign-up, sign-in, password reset,
-and database access have been removed. Existing data in Neon and the preserved
-SQLite database is not changed or deleted.
-
-The entry screen currently provides sign-up, sign-in, and password-reset
-interface prototypes only. These actions do not save account information or
-send reset emails until a secure authentication backend and email delivery
-service are configured.
+The Vite/React frontend uses server-side API handlers for account registration
+and sign-in. Neon credentials are accessed only by the backend; they are never
+exposed to browser code. Passwords are stored as scrypt hashes, and sessions
+use HTTP-only cookies.
 
 ## Deploy to Vercel
 
@@ -15,13 +11,25 @@ service are configured.
    `Website`.
 2. Use the Vite framework preset, build command `npm run build`, and output
    directory `dist`.
-3. Deploy the project. Vercel serves the static frontend and rewrites client-side
-   routes to `index.html`.
+3. Set `DATABASE_URL` in Vercel's project environment variables to the Neon
+   connection string for Production and any Preview environments that need
+   account access.
+4. Deploy the project. Vercel serves the `/api/*` functions alongside the
+   frontend and rewrites client-side routes to `index.html`.
 
 ## Local development
 
-Run the Vite development server from this directory:
+Set `DATABASE_URL` in `backend/.env` using the connection string from the Neon
+Console. Keep that file private; it is ignored by Git. A blank template is
+available at `backend/.env.example`. Then run the Vite development server from
+this directory; it loads the backend environment file and routes local API
+requests to the same handlers used in deployment:
 
 ```powershell
 npm run dev
 ```
+
+The API initializes the `users` and `user_sessions` tables when it first
+connects. To check the connection, open `/api/db-test`. Registration and
+sign-in will report an error if `DATABASE_URL` is not configured or the
+database cannot be reached.

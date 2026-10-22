@@ -87,15 +87,19 @@
   background: #f2eee4;
 }
 
-.entry-tabs button {
-  min-height: 42px;
+.entry-tabs button,
+.sign-out-button {
   border: 0;
-  border-radius: 7px;
-  background: transparent;
-  color: #50524f;
   cursor: pointer;
   font: inherit;
   font-weight: 600;
+}
+
+.entry-tabs button {
+  min-height: 42px;
+  border-radius: 7px;
+  background: transparent;
+  color: #50524f;
 }
 
 .entry-tabs button[aria-selected="true"] {
@@ -159,6 +163,11 @@
   outline-offset: 2px;
 }
 
+.entry-submit:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
 .entry-status {
   margin: 20px 0 0;
   padding: 11px 12px;
@@ -168,4 +177,31 @@
   font-size: 0.85rem;
   line-height: 1.5;
   text-align: center;
+}
+
+.session-error {
+  margin: 16px;
+  color: #a12d2d;
+  text-align: center;
+}
+
+.signed-in-name {
+  color: #302719;
+  font-weight: 600;
+}
+
+.sign-out-button {
+  padding: 8px 13px;
+  border-radius: 7px;
+  background: #785719;
+  color: #fff;
+}
+
+.sign-out-button:hover {
+  background: #604514;
+}
+
+.sign-out-button:focus-visible {
+  outline: 3px solid #bb8d2e;
+  outline-offset: 2px;
 }
