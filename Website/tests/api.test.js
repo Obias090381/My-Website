@@ -32,8 +32,17 @@ test("registration rejects missing account fields before database access", async
 });
 
 test("registration clearly reports a missing Neon connection", async () => {
-  const previousDatabaseUrl = process.env.DATABASE_URL;
-  delete process.env.DATABASE_URL;
+  const envNames = [
+    "DATABASE_URL",
+    "STORAGE_POSTGRES_URL",
+    "STORAGE_DATABASE_URL",
+  ];
+  const previousValues = new Map(
+    envNames.map((name) => [name, process.env[name]])
+  );
+  for (const name of envNames) {
+    delete process.env[name];
+  }
 
   try {
     const response = createResponse();
@@ -45,10 +54,12 @@ test("registration clearly reports a missing Neon connection", async () => {
     assert.equal(response.statusCode, 503);
     assert.match(response.body.message, /database is not configured/i);
   } finally {
-    if (previousDatabaseUrl === undefined) {
-      delete process.env.DATABASE_URL;
-    } else {
-      process.env.DATABASE_URL = previousDatabaseUrl;
+    for (const [name, value] of previousValues) {
+      if (value === undefined) {
+        delete process.env[name];
+      } else {
+        process.env[name] = value;
+      }
     }
   }
 });

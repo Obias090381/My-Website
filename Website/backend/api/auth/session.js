@@ -17,7 +17,12 @@ export default async function handler(request, response) {
 
   const token = getSessionToken(request);
   if (request.method === "DELETE") {
-    if (token && process.env.DATABASE_URL) {
+    if (
+      token &&
+      (process.env.DATABASE_URL ||
+        process.env.STORAGE_POSTGRES_URL ||
+        process.env.STORAGE_DATABASE_URL)
+    ) {
       try {
         const sql = await getDatabase();
         await sql`
@@ -41,7 +46,11 @@ export default async function handler(request, response) {
     return response.status(200).json({ authenticated: false });
   }
 
-  if (!process.env.DATABASE_URL) {
+  if (
+    !process.env.DATABASE_URL &&
+    !process.env.STORAGE_POSTGRES_URL &&
+    !process.env.STORAGE_DATABASE_URL
+  ) {
     return response.status(503).json({
       success: false,
       message: "Session verification is unavailable because the database is not configured.",

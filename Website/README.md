@@ -11,19 +11,23 @@ use HTTP-only cookies.
    `Website`.
 2. Use the Vite framework preset, build command `npm run build`, and output
    directory `dist`.
-3. Set `DATABASE_URL` in Vercel's project environment variables to the Neon
-   connection string for Production and any Preview environments that need
-   account access.
+3. Connect the Neon database to the Vercel project. The backend reads
+   `STORAGE_POSTGRES_URL` (or `STORAGE_DATABASE_URL`) supplied by the Neon
+   integration, with `DATABASE_URL` supported as a fallback. Confirm the
+   integration variables are available in Production and any Preview
+   environments that need account access.
 4. Deploy the project. Vercel serves the `/api/*` functions alongside the
    frontend and rewrites client-side routes to `index.html`.
 
 ## Local development
 
-Set `DATABASE_URL` in `backend/.env` using the connection string from the Neon
-Console. Keep that file private; it is ignored by Git. A blank template is
-available at `backend/.env.example`. Then run the Vite development server from
-this directory; it loads the backend environment file and routes local API
-requests to the same handlers used in deployment:
+For local development, set `DATABASE_URL` in `backend/.env` using the
+connection string from the Neon Console. Keep that file private; it is ignored
+by Git. A blank template is available at `backend/.env.example`. The backend
+also accepts the Vercel Neon integration variables `STORAGE_POSTGRES_URL` and
+`STORAGE_DATABASE_URL`. Then run the Vite development server from this
+directory; it loads the backend environment file and routes local API requests
+to the same handlers used in deployment:
 
 ```powershell
 npm run dev

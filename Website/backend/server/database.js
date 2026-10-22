@@ -6,12 +6,18 @@ let schemaReady;
 
 export async function getDatabase() {
   if (!sqlClient) {
-    const databaseUrl = process.env.DATABASE_URL;
+    const databaseUrl = [
+      process.env.DATABASE_URL,
+      process.env.STORAGE_POSTGRES_URL,
+      process.env.STORAGE_DATABASE_URL,
+    ].find((value) => typeof value === "string" && value.trim());
     if (!databaseUrl) {
-      throw new Error("DATABASE_URL is not configured");
+      throw new Error(
+        "No database connection is configured. Set DATABASE_URL or connect Neon to provide STORAGE_POSTGRES_URL."
+      );
     }
 
-    sqlClient = neon(databaseUrl);
+    sqlClient = neon(databaseUrl.trim());
   }
 
   if (!schemaReady) {

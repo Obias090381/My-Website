@@ -33,7 +33,11 @@ export default async function handler(request, response) {
     });
   }
 
-  if (!process.env.DATABASE_URL) {
+  if (
+    !process.env.DATABASE_URL &&
+    !process.env.STORAGE_POSTGRES_URL &&
+    !process.env.STORAGE_DATABASE_URL
+  ) {
     return response.status(503).json({
       success: false,
       message: "Account registration is unavailable because the database is not configured.",
