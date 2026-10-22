@@ -1,6 +1,9 @@
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [mode, setMode] = useState("signup");
+
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -16,20 +19,47 @@ function App() {
 
         <div className="entry-intro">
           <span className="entry-eyebrow">Faith, Vision and Service</span>
-          <h1 id="entry-title">Create your account</h1>
-          <p>Sign up to continue to the website.</p>
+          <h1 id="entry-title">
+            {mode === "signup" ? "Create your account" : "Welcome back"}
+          </h1>
+          <p>
+            {mode === "signup"
+              ? "Sign up to continue to the website."
+              : "Sign in to continue to the website."}
+          </p>
+        </div>
+
+        <div className="entry-tabs" role="tablist" aria-label="Account options">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === "signup"}
+            onClick={() => setMode("signup")}
+          >
+            Sign up
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === "signin"}
+            onClick={() => setMode("signin")}
+          >
+            Sign in
+          </button>
         </div>
 
         <form className="entry-form" onSubmit={handleSubmit}>
-          <label>
-            Name
-            <input
-              name="name"
-              type="text"
-              autoComplete="name"
-              required
-            />
-          </label>
+          {mode === "signup" && (
+            <label>
+              Name
+              <input
+                name="name"
+                type="text"
+                autoComplete="name"
+                required
+              />
+            </label>
+          )}
 
           <label>
             Email
@@ -46,15 +76,17 @@ function App() {
             <input
               name="password"
               type="password"
-              autoComplete="new-password"
-              minLength={8}
+              autoComplete={mode === "signup" ? "new-password" : "current-password"}
+              minLength={mode === "signup" ? 8 : undefined}
               required
             />
-            <span className="entry-hint">Use at least 8 characters.</span>
+            {mode === "signup" && (
+              <span className="entry-hint">Use at least 8 characters.</span>
+            )}
           </label>
 
           <button className="entry-submit" type="submit">
-            Create account
+            {mode === "signup" ? "Create account" : "Sign in"}
           </button>
         </form>
 

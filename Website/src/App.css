@@ -77,6 +77,33 @@
   line-height: 1.5;
 }
 
+.entry-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 22px;
+  padding: 5px;
+  border-radius: 10px;
+  background: #f2eee4;
+}
+
+.entry-tabs button {
+  min-height: 42px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #50524f;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+
+.entry-tabs button[aria-selected="true"] {
+  background: #fff;
+  color: #302719;
+  box-shadow: 0 1px 4px rgba(47, 42, 31, 0.12);
+}
+
 .entry-form {
   display: grid;
   gap: 16px;
@@ -126,6 +153,7 @@
 }
 
 .entry-form input:focus-visible,
+.entry-tabs button:focus-visible,
 .entry-submit:focus-visible {
   outline: 3px solid #bb8d2e;
   outline-offset: 2px;
