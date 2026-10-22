@@ -7,11 +7,15 @@ import login from "./backend/api/auth/login.js";
 import session from "./backend/api/auth/session.js";
 import dbTest from "./backend/api/db-test.js";
 import register from "./backend/api/register.js";
+import confirmPasswordReset from "./backend/api/password-reset/confirm.js";
+import requestPasswordReset from "./backend/api/password-reset/request.js";
 
 const apiHandlers = new Map([
   ["/api/auth/login", login],
   ["/api/auth/session", session],
   ["/api/db-test", dbTest],
+  ["/api/password-reset/confirm", confirmPasswordReset],
+  ["/api/password-reset/request", requestPasswordReset],
   ["/api/register", register],
 ]);
 
@@ -114,8 +118,15 @@ function localApiPlugin() {
 
 export default defineConfig(({ mode }) => {
   const backendEnv = loadEnv(mode, resolve(process.cwd(), "backend"), "");
-  if (!process.env.DATABASE_URL && backendEnv.DATABASE_URL) {
-    process.env.DATABASE_URL = backendEnv.DATABASE_URL;
+  for (const key of [
+    "DATABASE_URL",
+    "RESEND_API_KEY",
+    "RESEND_FROM_EMAIL",
+    "APP_URL",
+  ]) {
+    if (!process.env[key] && backendEnv[key]) {
+      process.env[key] = backendEnv[key];
+    }
   }
 
   return {

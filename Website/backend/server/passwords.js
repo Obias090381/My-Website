@@ -1,4 +1,9 @@
-import { randomBytes, scryptSync, timingSafeEqual } from "node:crypto";
+import {
+  createHash,
+  randomBytes,
+  scryptSync,
+  timingSafeEqual,
+} from "node:crypto";
 import { Buffer } from "node:buffer";
 
 export function hashPassword(password) {
@@ -22,4 +27,13 @@ export function verifyPassword(password, passwordHash) {
   const expectedHash = Buffer.from(storedHash, "hex");
   const actualHash = scryptSync(password, salt, expectedHash.length);
   return timingSafeEqual(actualHash, expectedHash);
+}
+
+export function createPasswordResetToken() {
+  const token = randomBytes(32).toString("base64url");
+  return { token, tokenHash: hashPasswordResetToken(token) };
+}
+
+export function hashPasswordResetToken(token) {
+  return createHash("sha256").update(token).digest("hex");
 }
