@@ -81,38 +81,20 @@ function App() {
 
         <form className="entry-form" onSubmit={handleSubmit}>
           {mode === "signup" && (
-            <div className="entry-name-fields">
-              <label>
-                Last name
-                <input
-                  name="lastName"
-                  type="text"
-                  autoComplete="family-name"
-                  required
-                />
-              </label>
-              <label>
-                Given name
-                <input
-                  name="givenName"
-                  type="text"
-                  autoComplete="given-name"
-                  required
-                />
-              </label>
-              <label className="entry-name-fields__middle">
-                Middle initial
-                <input
-                  name="middleInitial"
-                  type="text"
-                  autoComplete="additional-name"
-                  maxLength={1}
-                  pattern="[A-Za-z]"
-                  title="Enter one letter."
-                  required
-                />
-              </label>
-            </div>
+            <label>
+              Complete name
+              <input
+                name="fullName"
+                type="text"
+                autoComplete="name"
+                placeholder="Last name, Given name, MI"
+                required
+              />
+              <span className="entry-hint">
+                Enter in this order: Last name, Given name, Middle initial
+                (e.g., Doe, Jane, A).
+              </span>
+            </label>
           )}
 
           <label>
@@ -177,12 +159,6 @@ function App() {
             </button>
           </p>
         )}
-        {mode === "signup" && (
-          <p className="entry-terms">
-            Your full name includes your given name, middle initial, and last name.
-          </p>
-        )}
-
         <p className="entry-status" role="status" aria-live="polite">
           {message || "Account setup is pending. Form submissions do not save or send your details."}
         </p>
