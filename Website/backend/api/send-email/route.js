@@ -14,7 +14,7 @@ export async function POST(request) {
     }
 
     const result = await resend.emails.send({
-      from: "Your Website <no-reply@clud.org>",
+      from: "Your Website <cludflare.org>",
       to: [email],
       subject: subject || "Message from your website",
       html: `<p>${message}</p>`,
